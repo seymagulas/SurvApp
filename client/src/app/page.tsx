@@ -1,4 +1,6 @@
-import Image from 'next/image'
+//LOG IN// Registration
+
+mport Image from 'next/image'
 import styles from './page.module.css'
 
 export default function Home() {
