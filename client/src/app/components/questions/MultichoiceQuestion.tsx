@@ -1,31 +1,30 @@
 'use client'
 import { useState } from "react";
 import {BsTrash} from "react-icons/bs";
-import {AiOutlinePlusCircle} from "react-icons/ai";
 
 
 const MultiChoiceQuestion = () => {
   const [answers, setAnswers] = useState<string[]>([]);
   const [inputValues, setInputValues] = useState<string[]>([]);
-  const [newTopic, setNewTopic] = useState<string>('')
 
 
   const addInput = () => {
     setInputValues([... inputValues, ""])
   }
 
-  const addAnswer = (newTopic: string) => {
-    setAnswers([...answers, newTopic]);
-    resetInputValues();
-    setNewTopic('');
+  const addAnswer = (index:number, newTopic: string) => {
+    const updatedInputValues = [...inputValues];
+    updatedInputValues[index] = newTopic;
+    setAnswers(updatedInputValues);
   }
-  const resetInputValues = () => {
-    return inputValues.filter((values) => values !== '');
-  }
-
 
   const deleteAnswer = (TopicToDelete:string) => {
-    return answers.filter((topic) => topic !== TopicToDelete)
+    const updatedAnswers = answers.filter((topic) => topic !== TopicToDelete);
+    setAnswers(updatedAnswers);
+  }
+
+  const saveAnswers = () => {
+    setAnswers(inputValues)
   }
 
   return (
@@ -34,16 +33,13 @@ const MultiChoiceQuestion = () => {
         <input type="button" id="addAnswer" value="Add Answer" name="addAnswer" onClick={(addInput)}/>
       </div>
       <div className="MultiChoice-responses">
-        {inputValues.map((value) => (
+        {inputValues.map((value, index) => (
           <div key={value}>
-            <input type="text" value={value} onChange={(event) => setNewTopic(event.target.value)}/>
-            {value !== '' ? (
+            <input type="text" value={value} onChange={(event) => addAnswer(index, event.target.value)}/>
               <BsTrash onClick={() => deleteAnswer(value)}/>
-            ) : (
-              <AiOutlinePlusCircle onClick={() => addAnswer(newTopic)}/>
-            )}
           </div>
         ))}
+        <input type='submit' onClick={saveAnswers}/>
       </div>
     </div>
   )
