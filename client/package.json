@@ -14,7 +14,6 @@
     "test": "jest --watch"
   },
   "dependencies": {
-    "@testing-library/user-event": "^14.4.3",
     "@types/node": "20.3.1",
     "@types/react": "18.2.13",
     "@types/react-dom": "18.2.6",
@@ -33,6 +32,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/testing-library__jest-dom": "^5.14.6",
     "autoprefixer": "^10.4.14",
     "cypress": "^12.15.0",
