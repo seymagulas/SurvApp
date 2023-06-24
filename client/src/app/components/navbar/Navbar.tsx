@@ -1,6 +1,6 @@
 'use client';
 import styles from './navbar.module.css';
-import React from 'react';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
@@ -26,7 +26,7 @@ const Navbar = () => {
         <p
           className={`${dans.className} marker:max-sm:hidden ml-10 text-3xl mt-2 text-black tracking-wide self-center `}
         >
-          SurApp
+          SurVapp
         </p>
       </Link>
 
