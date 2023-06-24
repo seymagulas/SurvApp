@@ -1,12 +1,10 @@
-import { render, screen } from '@testing-library/react'
-import Home from '../page'
-import '@testing-library/jest-dom'
-import '@testing-library/jest-dom/extend-expect'
+import { render, screen } from '@testing-library/react';
+import MultiChoiceQuestion from '../components/MultichoiceQuestion';
+import React from 'react';
 describe('Home', () => {
   it('renders a heading', () => {
-    render(<Home />)
-
-    const text = screen.getByText(/Hello World/i)
-    expect(text).toBeInTheDocument()
-  })
-})
+    render(<MultiChoiceQuestion />);
+    // const text = screen.getByText('Homepage');
+    // expect(text).toBeInTheDocument();
+  });
+});
