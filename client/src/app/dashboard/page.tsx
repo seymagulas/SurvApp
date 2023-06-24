@@ -1,12 +1,24 @@
-//Nav bar
-//This is questions (index)
+import Navbar from '../components/navbar/Navbar';
+import Index from './index/page';
+import Link from 'next/link';
 
-//Create new survey
 
-import React from 'react';
-
-const Nabar = () => {
-  return <div>Nabar</div>;
+const Dashboard = () => {
+  return (
+    <div>
+      <div>
+        <Navbar/>
+      </div>
+      <div>
+        <Index/>
+      </div>
+      <div>
+        <Link href="/dashboard/createNewSurvey">
+          <input type='button' value='Create new Survey'/>
+        </Link>
+      </div>
+    </div>
+  );
 };
 
-export default Nabar;
+export default Dashboard;
