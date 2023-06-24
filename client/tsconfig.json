@@ -3,7 +3,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "incremental": true,
@@ -12,29 +12,14 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "types": ["@types/jest", "@types/node", "@types/testing-library__jest-dom"],
     "jsx": "preserve",
-    "baseUrl": ".",
-    "paths": {
-      "@*": ["./*"]
-      // "@/components/*": ["components/*"],
-      // "@/pages/*": ["pages/*"],
-      // "@/styles/*": ["styles/*"]
-    },
+    "types": ["@types/jest", "@types/node", "@types/testing-library__jest-dom"],
     "plugins": [
       {
         "name": "next"
       }
     ]
   },
-  // "include": ["src/*.ts"],
-  "exclude": [
-    "src/*.test.ts",
-    "node_modules",
-    "./cypress.config.ts",
-    "cypress"
-  ],
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["src/*.test.ts", "node_modules", "./cypress.config.ts", "cypress"]
 }
-// cypress.config.ts here to help with types in jest
-// "**/*.cy.tsx"
