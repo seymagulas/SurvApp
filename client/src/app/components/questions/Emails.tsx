@@ -5,41 +5,41 @@ import {BsTrash} from "react-icons/bs";
 
 const Emails = () => {
   const [emailsList, setEmailsList] = useState<string[]>([]);
-  const [inputEmails, setInputValues] = useState<string[]>([]);
+  const [inputEmails, setInputEmails] = useState<string[]>([]);
 
 
   const addInput = () => {
-    setInputValues([... inputValues, ""])
+    setInputEmails([... inputEmails, ""])
   }
 
   const addAnswer = (index:number, newTopic: string) => {
-    const updatedInputValues = [...inputValues];
-    updatedInputValues[index] = newTopic;
-    setAnswers(updatedInputValues);
+    const updatedInputEmails = [...inputEmails];
+    updatedInputEmails[index] = newTopic;
+    setEmailsList(updatedInputEmails);
   }
 
-  const deleteAnswer = (TopicToDelete:string) => {
-    const updatedAnswers = answers.filter((topic) => topic !== TopicToDelete);
-    setAnswers(updatedAnswers);
+  const deleteEmail = (EmailToDelete:string) => {
+    const updatedEmails = emailsList.filter((email) => email !== EmailToDelete);
+    setEmailsList(updatedEmails);
   }
 
-  const saveAnswers = () => {
-    setAnswers(inputValues)
+  const sendEmails = () => {
+// LOGIC FOR THE BE OR FE
   }
 
   return (
     <div>
-      <div className="multiChoiceAddAnswer">
-        <input type="button" id="addAnswer" value="Add Answer" name="addAnswer" onClick={(addInput)}/>
+      <div className="addNewEmail">
+        <input type="button" id="addEmail" value="Add Email" name="addEmail" onClick={(addInput)}/>
       </div>
-      <div className="MultiChoice-responses">
-        {inputValues.map((value, index) => (
-          <div key={value}>
-            <input type="text" value={value} onChange={(event) => addAnswer(index, event.target.value)}/>
-              <BsTrash onClick={() => deleteAnswer(value)}/>
+      <div className="email-list">
+        {inputEmails.map((email, index) => (
+          <div key={email}>
+            <input type="text" value={email} onChange={(event) => addAnswer(index, event.target.value)}/>
+              <BsTrash onClick={() => deleteEmail(email)}/>
           </div>
         ))}
-        <input type='submit' onClick={saveAnswers}/>
+        <input type='submit' value='Send' onClick={sendEmails}/>
       </div>
     </div>
   )
