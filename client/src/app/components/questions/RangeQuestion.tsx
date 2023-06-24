@@ -1,4 +1,5 @@
 'use client'
+import React from "react";
 import { useState } from "react";
 
 const RangeQuestion = () =>{
@@ -14,8 +15,8 @@ const RangeQuestion = () =>{
     <div>
       {range.map((value) => (
         <div key={value}>
-          <input type='checkbox' id={value.toString()} value={value.toString()} onChange={(event) => addAnswer(event.target.value)}/>
           <label htmlFor={value.toString()}>{value}</label>
+          <input type='checkbox' id={value.toString()} value={value.toString()} onChange={(event) => addAnswer(event.target.value)}/>
         </div>
       ))}
     </div>
