@@ -3,6 +3,7 @@
 import mongoose from "./index";
 
 export interface IAnswerOption {
+  _id?: string;
   text: string;
   score?: number;
 }
@@ -24,6 +25,7 @@ export const enum QuestionChoiceType {
 }
 
 export interface IQuestion {
+  _id?: string;
   text: string;
   choiceType: QuestionChoiceType;
   answerOptions?: IAnswerOption[];
