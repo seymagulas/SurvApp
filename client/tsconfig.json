@@ -15,7 +15,9 @@
     "jsx": "preserve",
 
     "types": ["@types/jest", "@types/node", "@types/testing-library__jest-dom"],
-
+    "paths": {
+      "@/*": ["./*"]
+    },
     "plugins": [
       {
         "name": "next"
@@ -23,5 +25,5 @@
     ]
   },
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["src/*.test.ts", "node_modules", "./cypress.config.ts", "cypress"]
+  "exclude": ["node_modules"]
 }

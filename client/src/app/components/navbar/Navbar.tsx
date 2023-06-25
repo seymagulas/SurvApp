@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Dancing_Script } from 'next/font/google';
+import { useAppSelector } from '@/src/redux/store';
 const dans = Dancing_Script({
   subsets: ['latin'],
   weight: '600',
@@ -13,6 +14,7 @@ const Navbar = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [toggleDropdown, setToggleDropDown] = useState(false);
 
+  const name = useAppSelector((state) => state.authReducer.value.username);
   return (
     <nav className=" w-full flex  justify-between mb-16 pt-3 ">
       <Link href="/" className="flex gap-2 flex-center">
@@ -34,19 +36,10 @@ const Navbar = () => {
       <div className="sm:flex hidden">
         {isUserLoggedIn ? (
           <div className="flex gap-3 md:gap-5">
-            <Link
-              href="/dashboard/createNewSurvey"
-              className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
-            >
+            <Link href="/dashboard/createNewSurvey" className="black_button">
               Create Survey
             </Link>
-            <button
-              type="button"
-              className="rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center"
-              onClick={() => {
-                setIsUserLoggedIn(false);
-              }}
-            >
+            <button type="button" className="white_button" onClick={() => {}}>
               Sign Out
             </button>
             <Link href="/dashboard/userPage">
@@ -61,15 +54,24 @@ const Navbar = () => {
           </div>
         ) : (
           <>
-            <button
-              type="button"
-              onClick={() => {
-                setIsUserLoggedIn(true);
-              }}
-              className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center mr-10"
-            >
-              Sign in
-            </button>
+            <Link href="/dashboard/login">
+              <button
+                type="button"
+                onClick={() => {}}
+                className="black_button mr-5"
+              >
+                Sign in
+              </button>
+            </Link>
+            <Link href="/dashboard/signup">
+              <button
+                type="button"
+                onClick={() => {}}
+                className="white_button mr-5"
+              >
+                Register
+              </button>
+            </Link>
           </>
         )}
       </div>
@@ -85,8 +87,9 @@ const Navbar = () => {
               alt="user-pic"
               onClick={() => setToggleDropDown((prev) => !prev)}
             />
+            <span>HI {name}</span>
             {toggleDropdown && (
-              <div className="absolute right-0 top-full mt-3 w-full bg-slate-50 p-5 rounded-lg bg-slate min-w-[210px] flex flex-col gap-2 justify-end items-end">
+              <div className="dropdown">
                 <Link
                   href="/dashboard/userPage"
                   className=" text-sm font-inter text-gray-700 hover:text-gray-500 font-medium"
@@ -106,9 +109,8 @@ const Navbar = () => {
                     type="button"
                     onClick={() => {
                       setToggleDropDown(false);
-                      setIsUserLoggedIn(false);
                     }}
-                    className=" mt-5 w-full rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
+                    className="black_button"
                   >
                     Sign Out
                   </button>
@@ -118,15 +120,28 @@ const Navbar = () => {
           </div>
         ) : (
           <>
-            <button
-              type="button"
-              onClick={() => {
-                setIsUserLoggedIn(true);
-              }}
-              className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center mr-10"
-            >
-              Sign in
-            </button>
+            <Link href="/dashboard/login">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsUserLoggedIn(true);
+                }}
+                className="black_button mr-5"
+              >
+                Sign in
+              </button>
+            </Link>
+            <Link href="/dashboard/signup">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsUserLoggedIn(true);
+                }}
+                className="white_button mr-5"
+              >
+                Register
+              </button>
+            </Link>
           </>
         )}
       </div>
