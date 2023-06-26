@@ -2,15 +2,15 @@
 
 import { Request, Response } from "express";
 import { SurveyModel } from "../../models/surveyModel";
-import { LogRequest } from "../surveyControllers/interfaces";
 import { SurveyLogsModel } from "../../models/surveyLogModel";
+import { LogRequest } from "./interfaces";
 
 export const logParticipantAnswer = async (req: Request, res: Response) => {
   try {
     const hash = req.params.hash;
-    const { email, questionId, answerId, isFinished } = req.body as LogRequest;
+    const { questionId, answerId, isFinished } = req.body as LogRequest;
 
-    const log = await SurveyLogsModel.findOne({ hash, email });
+    const log = await SurveyLogsModel.findOne({ hash });
 
     if (!log) {
       return res
@@ -24,17 +24,14 @@ export const logParticipantAnswer = async (req: Request, res: Response) => {
         .send({ message: "This question has already answered." });
     }
 
-    log.respondedQuestionIds?.push(questionId);
-    log.isCompleted = isFinished;
-
-    await log.save();
-
     const survey = await SurveyModel.findById(log.surveyId);
     if (!survey) {
       return res.status(404).send({ message: "Survey not found" });
     }
 
-    const question = survey.questions.find((q) => q._id === questionId);
+    const question = survey.questions.find((q) => {
+      return q._id?.toString() === questionId;
+    });
 
     if (!question) {
       return res.status(404).send({ message: "Question not found" });
@@ -46,15 +43,21 @@ export const logParticipantAnswer = async (req: Request, res: Response) => {
         .send({ message: "Question has no answer options" });
     }
 
-    const answer = question.answerOptions.find((a) => a._id === answerId);
+    const answer = question.answerOptions.find(
+      (a) => a._id?.toString() === answerId
+    );
 
     if (!answer) {
       return res.status(404).send({ message: "Answer option not found" });
     }
 
     answer.score = Number(answer.score) + 1;
-
     await survey.save();
+
+    log.respondedQuestionIds?.push(questionId);
+    log.isCompleted = isFinished;
+
+    await log.save();
     res.sendStatus(200);
   } catch (error: unknown) {
     console.log(error);

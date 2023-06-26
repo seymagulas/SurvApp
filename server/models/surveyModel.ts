@@ -57,7 +57,6 @@ export interface ISurvey {
   name: string;
   questions: IQuestion[];
   status: SurveyStatus;
-  hash?: string;
 }
 
 export const SurveySchema = new mongoose.Schema<ISurvey>({
@@ -77,10 +76,6 @@ export const SurveySchema = new mongoose.Schema<ISurvey>({
     type: String,
     required: true,
     default: SurveyStatus.new,
-  },
-  hash: {
-    type: String,
-    required: false,
   },
 });
 

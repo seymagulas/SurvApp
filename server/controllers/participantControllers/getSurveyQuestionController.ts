@@ -2,7 +2,6 @@
 
 import { Request, Response } from "express";
 import { SurveyModel } from "../../models/surveyModel";
-import { LogRequest } from "../surveyControllers/interfaces";
 import { SurveyLogsModel } from "../../models/surveyLogModel";
 
 export const getSurveyQuestionController = async (
@@ -11,9 +10,8 @@ export const getSurveyQuestionController = async (
 ) => {
   try {
     const hash = req.params.hash;
-    const { email } = req.body as LogRequest;
 
-    const log = await SurveyLogsModel.findOne({ hash, email });
+    const log = await SurveyLogsModel.findOne({ hash });
 
     if (!log) {
       return res

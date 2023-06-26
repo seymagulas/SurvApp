@@ -1,6 +1,5 @@
 "use strict";
 
-import * as crypto from "crypto";
 import {
   ISurvey,
   QuestionChoiceType,
@@ -51,15 +50,6 @@ export const answerOptionsForRange = [
   { text: "5" },
 ];
 
-export const generateHash = () => {
-  const current_date = new Date().valueOf().toString();
-  const random = Math.random().toString();
-  return crypto
-    .createHash("sha1")
-    .update(current_date + random)
-    .digest("hex");
-};
-
 export const prepareSurveyToPublish = (survey: ISurvey) => {
   survey.questions.forEach((question) => {
     if (question.choiceType === QuestionChoiceType.range) {
@@ -70,7 +60,6 @@ export const prepareSurveyToPublish = (survey: ISurvey) => {
     });
   });
   survey.status = SurveyStatus.published;
-  survey.hash = generateHash();
 
   return survey;
 };
