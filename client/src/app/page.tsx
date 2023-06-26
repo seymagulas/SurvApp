@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { userInfo, logOut } from '@/src/redux/features/auth-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/redux/store';
-
+import styles from './page.module.css';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
@@ -71,16 +71,16 @@ export default function Home() {
       <h1 className={`${dans.className}  text-6xl flex justify-center mt-10`}>
         Welcome to SurvApp!
       </h1>
-      <div className="flex ml-20 mt-20 mr-20">
-        <div className="">
+      <div className="flex justify-center  ml-44 items-center mt-10">
+        <div className="mr-20">
           <Image
             src="/assests/images/survapp.gif"
             alt="GIF"
-            width={700}
+            width={450}
             height={450}
           />
         </div>
-        <div className="ml-20 w-5/6 relative flex flex-col min-h-screen overflow-hidden">
+        <div className="  w-5/6 relative flex flex-col max-h-screen overflow-hidden">
           <div className="p-6 mt-4 bg-white rounded-md shadow-md lg:max-w-lg">
             <h1 className="text-3xl font-bold text-center text-gray-700">
               Login
