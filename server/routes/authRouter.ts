@@ -1,8 +1,10 @@
 "use strict";
 
 import { Router } from "express";
-import { login, register, userDetails } from "../controllers/authController";
 import { authMiddleware } from "../middlewares/authMiddleware";
+import { login } from "../controllers/authControllers/loginController";
+import { userDetails } from "../controllers/authControllers/profileController";
+import { register } from "../controllers/authControllers/registerController";
 
 export const authRouter = Router();
 
