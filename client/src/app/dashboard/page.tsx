@@ -1,20 +1,20 @@
 import Navbar from '../components/navbar/Navbar';
-import Index from './index/page';
 import Link from 'next/link';
-
+import React from 'react';
 
 const Dashboard = () => {
   return (
     <div>
       <div>
-        <Navbar/>
+        <Navbar />
+      </div>
+ createsurvey
+        <Index />
       </div>
       <div>
-        <Index/>
-      </div>
-      <div>
+
         <Link href="/dashboard/createNewSurvey">
-          <input type='button' value='Create new Survey'/>
+          <input type="button" value="Create new Survey" />
         </Link>
       </div>
     </div>

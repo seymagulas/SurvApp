@@ -1,7 +1,7 @@
-// import { render } from '@testing-library/react';
-// import Home from '../Home/page';
+import { render } from '@testing-library/react';
+import UserProfilePage from '../dashboard/userPage/page';
 
-// it('renders homepage unchanged', () => {
-//   const { container } = render(<Home />);
-//   expect(container).toMatchSnapshot();
-// });
+it('renders homepage unchanged', () => {
+  const { container } = render(<UserProfilePage />);
+  expect(container).toMatchSnapshot();
+});

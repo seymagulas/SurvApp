@@ -5,14 +5,21 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Dancing_Script } from 'next/font/google';
+import { useAppSelector } from '@/src/redux/store';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/src/redux/store';
+import { logOut } from '@src/redux/features/auth-slice';
 const dans = Dancing_Script({
   subsets: ['latin'],
   weight: '600',
 });
 const Navbar = () => {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [toggleDropdown, setToggleDropDown] = useState(false);
 
+  const name = useAppSelector((state) => state.authReducer.value.username);
+  const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <nav className=" w-full flex  justify-between mb-7 pt-3 ">
       <Link href="/" className="flex gap-2 flex-center">
@@ -26,25 +33,22 @@ const Navbar = () => {
         <p
           className={`${dans.className} marker:max-sm:hidden ml-10 text-3xl mt-2 text-black tracking-wide self-center `}
         >
-          SurApp
+          SurVapp
         </p>
       </Link>
 
       {/* Desktop navigation */}
       <div className="sm:flex hidden">
-        {isUserLoggedIn ? (
+        {name ? (
           <div className="flex gap-3 md:gap-5">
-            <Link
-              href="/dashboard/createNewSurvey"
-              className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
-            >
+            <Link href="/dashboard/createNewSurvey" className="black_button">
               Create Survey
             </Link>
             <button
               type="button"
-              className="rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center"
+              className="white_button"
               onClick={() => {
-                setIsUserLoggedIn(false);
+                dispatch(logOut());
               }}
             >
               Sign Out
@@ -61,21 +65,30 @@ const Navbar = () => {
           </div>
         ) : (
           <>
-            <button
-              type="button"
-              onClick={() => {
-                setIsUserLoggedIn(true);
-              }}
-              className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center mr-10"
-            >
-              Sign in
-            </button>
+            <Link href="/dashboard/login">
+              <button
+                type="button"
+                onClick={() => {}}
+                className="black_button mr-5"
+              >
+                Sign in
+              </button>
+            </Link>
+            <Link href="/dashboard/signup">
+              <button
+                type="button"
+                onClick={() => {}}
+                className="white_button mr-5"
+              >
+                Register
+              </button>
+            </Link>
           </>
         )}
       </div>
       {/* Mobile Navigation */}
       <div className="sm:hidden flex relative">
-        {isUserLoggedIn ? (
+        {name ? (
           <div className="flex">
             <Image
               src="/assests/images/avatar.jpeg"
@@ -85,8 +98,9 @@ const Navbar = () => {
               alt="user-pic"
               onClick={() => setToggleDropDown((prev) => !prev)}
             />
+            <span>HI {name}</span>
             {toggleDropdown && (
-              <div className="absolute right-0 top-full mt-3 w-full bg-slate-50 p-5 rounded-lg bg-slate min-w-[210px] flex flex-col gap-2 justify-end items-end">
+              <div className="dropdown">
                 <Link
                   href="/dashboard/userPage"
                   className=" text-sm font-inter text-gray-700 hover:text-gray-500 font-medium"
@@ -101,30 +115,32 @@ const Navbar = () => {
                 >
                   Create Survey
                 </Link>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setToggleDropDown(false);
-                    setIsUserLoggedIn(false);
-                  }}
-                  className=" mt-5 w-full rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
-                >
-                  Sign Out
-                </button>
+                <Link href="/">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      dispatch(logOut());
+                    }}
+                    className="black_button"
+                  >
+                    Sign Out
+                  </button>
+                </Link>
               </div>
             )}
           </div>
         ) : (
           <>
-            <button
-              type="button"
-              onClick={() => {
-                setIsUserLoggedIn(true);
-              }}
-              className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center mr-10"
-            >
-              Sign in
-            </button>
+            <Link href="/dashboard/login">
+              <button type="button" className="black_button mr-5">
+                Sign in
+              </button>
+            </Link>
+            <Link href="/dashboard/signup">
+              <button type="button" className="white_button mr-5">
+                Register
+              </button>
+            </Link>
           </>
         )}
       </div>

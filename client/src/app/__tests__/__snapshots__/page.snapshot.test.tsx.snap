@@ -2,15 +2,101 @@
 
 exports[`renders homepage unchanged 1`] = `
 <div>
-  <nav>
-    <h1>
-      Homepage
-    </h1>
-    <a
-      href="/about"
+  <div
+    class="flex justify-center align-middle w-full"
+  >
+    <div
+      class="relative w-/12 p-2.5"
     >
-      About
-    </a>
-  </nav>
+      <div
+        class="flex "
+      >
+        <span
+          class=" text-2xl mb-5 text-gray-800"
+        >
+          Update Your Profile
+        </span>
+      </div>
+      <form
+        class="flex flex-col"
+      >
+        <label
+          class="text-lg mt-5"
+        >
+          Profile Picture
+        </label>
+        <div
+          class="flex items-center mt-2 mb-2"
+        >
+          <label
+            class="text-lg mt-5"
+            for="fileInput"
+          >
+            <svg
+              class="cursor-pointer  ml-3"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 1024 1024"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32zm-622.3-84c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 0 0 0-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 0 0 9.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9z"
+              />
+            </svg>
+          </label>
+          <input
+            class="mt-2 mb-2 h-5 border-none border-b-gray-500"
+            id="fileInput"
+            style="display: none;"
+            type="file"
+          />
+        </div>
+        <label
+          class="text-lg mt-5"
+        >
+          Username
+        </label>
+        <input
+          class="mt-2 mb-2 h-7 border-none border-b-gray-500"
+          placeholder="Enter new Username"
+          type="text"
+        />
+        <label
+          class="text-lg mt-5"
+        >
+          Email
+        </label>
+        <input
+          class="mt-2 mb-2 h-7 border-none border-b-gray-500"
+          placeholder="Enter new Email"
+          type="email"
+        />
+        <label
+          class="text-lg mt-5"
+        >
+          Password
+        </label>
+        <input
+          class="mt-2 mb-2 h-7 border-none border-b-gray-500"
+          placeholder="Enter new password"
+          type="password"
+        />
+        <button
+          class=" mt-5 w-full rounded-full border border-teal-300 bg-teal-300 py-1.5 px-5 text-white transition-all hover:bg-white hover:text-teal-300 text-center text-sm font-inter flex items-center justify-center "
+          type="submit"
+        >
+          Update
+        </button>
+        <button
+          class="mt-5 w-full rounded-full border border-red-300 bg-red-300 py-1.5 px-5 text-white transition-all hover:bg-white hover:text-red-300 text-center text-sm font-inter flex items-center justify-center"
+        >
+          Delete Account
+        </button>
+      </form>
+    </div>
+  </div>
 </div>
 `;
