@@ -1,25 +1,44 @@
 'use client'
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {surveysFromDataBase} from "../../apiServices";
+import {ISurvey} from '../../interfaces'
+import OptionsButtons from './optionsButtons';
 
-const RangeQuestion = () =>{
-  const [answer, setAnswer] = useState<number>(0);
+const ListOfSurveys = (userId: number) => {
+  const [surveys, setSurveys] = useState<ISurvey[]>([]);
+  const [optionsButtons, setOptionsButtons] = useState<Boolean>(false);
 
-  const addAnswer = (value: string) => {
-    setAnswer(Number(value))
+
+  useEffect(()=> {
+    surveysFromDataBase(userId)
+    .then((survey: ISurvey) => {setSurveys(survey);
+    });
+  }, []);
+
+ 
+
+  const showOptionsButtons = () => {
+    if (optionsButtons){
+      setOptionsButtons(!optionsButtons)
+    }setOptionsButtons(optionsButtons)
   }
-
-  const range: number[] = [1, 2, 3, 4, 5]
 
   return (
     <div>
-      {range.map((value) => (
-        <div key={value}>
-          <label htmlFor={value.toString()}>{value}</label>
-          <input type='checkbox' id={value.toString()} value={value.toString()} onChange={(event) => addAnswer(event.target.value)}/>
+      <h2>Your Surveys</h2>
+      {surveys.map((survey) => (
+        <div key={survey._id}>
+          {survey.name}
+          <input type='button' onClick={showOptionsButtons}>...</input> 
+            {optionsButtons && (
+              <div>
+                <OptionsButtons setSurveys={setSurveys} />
+              </div>
+            )}
         </div>
       ))}
     </div>
   )
 }
 
-export default RangeQuestion
+export default ListOfSurveys;
