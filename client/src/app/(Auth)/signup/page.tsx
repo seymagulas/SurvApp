@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
@@ -51,7 +50,7 @@ const Signup = () => {
         confirmPassword: data.confirmPassword,
       });
       if (response.status === 201) {
-        router.push('/dashboard/login');
+        router.push('/dashboard');
       }
     } catch (error) {
       toast.error(error.message);
@@ -147,7 +146,7 @@ const Signup = () => {
         <p className="mt-4 text-sm text-center text-gray-700">
           Already have an account?{' '}
           <Link
-            href="/dashboard/login"
+            href="/login"
             className="font-medium text-blue-600 hover:underline"
           >
             Log in

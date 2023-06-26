@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReduxProvider>
           <main>
-            <Navbar />
+          
             <ToastContainer position="top-right" theme="colored" />
             {children}
           </main>
