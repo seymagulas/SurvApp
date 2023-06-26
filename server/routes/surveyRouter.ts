@@ -11,6 +11,7 @@ import { editSurvey } from "../controllers/surveyControllers/editSurveyControlle
 import { publishSurvey } from "../controllers/surveyControllers/publishSurveyController";
 import { logParticipantAnswer } from "../controllers/participantControllers/logParticipantAnswerController";
 import { getSurveyQuestionController } from "../controllers/participantControllers/getSurveyQuestionController";
+import { sendEmailController } from "../controllers/participantControllers/sendEmailController";
 
 export const surveyRouter = Router();
 
@@ -21,5 +22,6 @@ surveyRouter.put("/:id", authMiddleware, editSurvey);
 surveyRouter.delete("/:id", authMiddleware, deleteSurvey);
 surveyRouter.put("/:id/publish", authMiddleware, publishSurvey);
 surveyRouter.put("/:id/complete", authMiddleware, completeSurvey);
-surveyRouter.get("/:hash", getSurveyQuestionController);
-surveyRouter.post("/:hash", logParticipantAnswer);
+surveyRouter.post("/:id/share", authMiddleware, sendEmailController);
+surveyRouter.get("/:hash/participate", getSurveyQuestionController);
+surveyRouter.post("/:hash/participate", logParticipantAnswer);
