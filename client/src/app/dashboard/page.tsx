@@ -1,12 +1,13 @@
-import Navbar from '../components/navbar/Navbar';
+import ListOfSurveys from '../components/questions/ListOfSurveys'
 import Link from 'next/link';
+
 
 
 const Dashboard = () => {
   return (
     <div>
       <div>
-        <Navbar/>
+        <ListOfSurveys/>
       </div>
       <div>
         <Link href="/dashboard/createNewSurvey">

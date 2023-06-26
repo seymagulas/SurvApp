@@ -1,5 +1,3 @@
-import { Inter } from 'next/font/google';
-const inter = Inter({ subsets: ['latin'] });
 import Navbar from '../components/navbar/Navbar';
 import Dashboard from './page';
 
@@ -17,7 +15,6 @@ export default function RootLayout({
     <html lang="en">
       <header>
         <Navbar />
-          {children}
       </header>
       <body>
         <main>
