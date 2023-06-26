@@ -4,10 +4,12 @@ import Link from 'next/link';
 
 
 const Dashboard = () => {
+  const userId: number = 45456;
+
   return (
     <div>
       <div>
-        <ListOfSurveys/>
+        <ListOfSurveys userId={userId} />
       </div>
       <div>
         <Link href="/dashboard/createNewSurvey">

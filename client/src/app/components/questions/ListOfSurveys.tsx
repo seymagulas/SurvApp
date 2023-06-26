@@ -2,41 +2,52 @@
 import { useState, useEffect } from "react";
 import {surveysFromDataBase} from "../../apiServices";
 import {ISurvey} from '../../interfaces'
-import OptionsButtons from './optionsButtons';
+import OptionsButtons from './OptionsButtons';
+interface PropButtons {
+  userId: number
+}
 
-const ListOfSurveys = (userId: number) => {
+const ListOfSurveys = ({userId}: PropButtons) => {
   const [surveys, setSurveys] = useState<ISurvey[]>([]);
   const [optionsButtons, setOptionsButtons] = useState<Boolean>(false);
 
 
   useEffect(()=> {
     surveysFromDataBase(userId)
-    .then((survey: ISurvey) => {setSurveys(survey);
+    .then((surveys: ISurvey[]) => {
+      setSurveys(surveys);
+    })
+    .catch((error: Error) =>{
+      console.log(error)
     });
   }, []);
 
  
 
   const showOptionsButtons = () => {
-    if (optionsButtons){
-      setOptionsButtons(!optionsButtons)
-    }setOptionsButtons(optionsButtons)
+    setOptionsButtons(!optionsButtons)
   }
 
   return (
     <div>
+      {surveys.length > 0 ? (
+        <div>
       <h2>Your Surveys</h2>
       {surveys.map((survey) => (
         <div key={survey._id}>
           {survey.name}
-          <input type='button' onClick={showOptionsButtons}>...</input> 
+          <input type='button' onClick={showOptionsButtons} value='...'/>
             {optionsButtons && (
               <div>
-                <OptionsButtons setSurveys={setSurveys} />
+                <OptionsButtons setSurveys={setSurveys} survey={survey}/>
               </div>
             )}
         </div>
       ))}
+      </div>
+      ) : (
+        <p>No Surveys Created</p>
+      )}
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import Navbar from '../components/navbar/Navbar';
+import RootLayout from '../layout';
 import Dashboard from './page';
 
 export const metadata = {
@@ -6,22 +6,10 @@ export const metadata = {
   description: 'SurvApp-dashboard',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardLayout({ }) {
   return (
-    <html lang="en">
-      <header>
-        <Navbar />
-      </header>
-      <body>
-        <main>
-          <Dashboard/>
-            {children}
-        </main>
-      </body>
-    </html>
+      <div>
+        <Dashboard />
+      </div>
   );
 }
