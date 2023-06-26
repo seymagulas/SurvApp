@@ -49,7 +49,7 @@ export default function Login() {
             password: response.data.password,
           }),
         );
-        router.push('/');
+        router.push('/dashboard');
       }
     } catch (error) {
       toast.error(error.message);
@@ -116,7 +116,7 @@ export default function Login() {
         <p className="mt-4 text-sm text-center text-gray-700">
           Don&apos;t have an account?
           <Link
-            href="/dashboard/signup"
+            href="/signup"
             className="font-medium text-blue-600 hover:underline"
           >
             Sign up
