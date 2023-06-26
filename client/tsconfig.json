@@ -3,7 +3,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "incremental": true,
@@ -12,17 +12,20 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "types": ["@types/jest", "@types/node", "@types/testing-library__jest-dom"],
+
     "jsx": "preserve",
 
-    "types": ["@types/jest", "@types/node", "@types/testing-library__jest-dom"],
     "paths": {
-      "@/*": ["./*"]
+      "@*": ["./*"]
     },
     "plugins": [
       {
         "name": "next"
       }
     ]
+
+    // "include": ["src/*.ts"],
   },
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

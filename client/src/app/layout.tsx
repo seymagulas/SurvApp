@@ -4,6 +4,9 @@ import React from 'react';
 const inter = Inter({ subsets: ['latin'] });
 import Navbar from './components/navbar/Navbar';
 import { ReduxProvider } from '../redux/provider';
+import { ToastContainer } from './ToastProvider/ToastProvider';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const metadata = {
   title: 'Survapp',
   description: 'A Survery App',
@@ -20,6 +23,7 @@ export default function RootLayout({
         <ReduxProvider>
           <main>
             <Navbar />
+            <ToastContainer position="top-right" theme="colored" />
             {children}
           </main>
         </ReduxProvider>

@@ -1,3 +1,8 @@
 //List all surveys
+import React from 'react';
 
-// new Survey button
+const page = () => {
+  return <div>page</div>;
+};
+
+export default page;

@@ -1,22 +1,27 @@
 'use client';
 import styles from './navbar.module.css';
-
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Dancing_Script } from 'next/font/google';
 import { useAppSelector } from '@/src/redux/store';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/src/redux/store';
+import { logOut } from '@src/redux/features/auth-slice';
 const dans = Dancing_Script({
   subsets: ['latin'],
   weight: '600',
 });
 const Navbar = () => {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [toggleDropdown, setToggleDropDown] = useState(false);
 
   const name = useAppSelector((state) => state.authReducer.value.username);
+  const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   return (
-    <nav className=" w-full flex  justify-between mb-16 pt-3 ">
+    <nav className=" w-full flex  justify-between mb-7 pt-3 ">
       <Link href="/" className="flex gap-2 flex-center">
         {/* <Image
           src="/assests/images/logo.png"
@@ -34,12 +39,18 @@ const Navbar = () => {
 
       {/* Desktop navigation */}
       <div className="sm:flex hidden">
-        {isUserLoggedIn ? (
+        {name ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/dashboard/createNewSurvey" className="black_button">
               Create Survey
             </Link>
-            <button type="button" className="white_button" onClick={() => {}}>
+            <button
+              type="button"
+              className="white_button"
+              onClick={() => {
+                dispatch(logOut());
+              }}
+            >
               Sign Out
             </button>
             <Link href="/dashboard/userPage">
@@ -77,7 +88,7 @@ const Navbar = () => {
       </div>
       {/* Mobile Navigation */}
       <div className="sm:hidden flex relative">
-        {isUserLoggedIn ? (
+        {name ? (
           <div className="flex">
             <Image
               src="/assests/images/avatar.jpeg"
@@ -108,7 +119,7 @@ const Navbar = () => {
                   <button
                     type="button"
                     onClick={() => {
-                      setToggleDropDown(false);
+                      dispatch(logOut());
                     }}
                     className="black_button"
                   >
@@ -121,24 +132,12 @@ const Navbar = () => {
         ) : (
           <>
             <Link href="/dashboard/login">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsUserLoggedIn(true);
-                }}
-                className="black_button mr-5"
-              >
+              <button type="button" className="black_button mr-5">
                 Sign in
               </button>
             </Link>
             <Link href="/dashboard/signup">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsUserLoggedIn(true);
-                }}
-                className="white_button mr-5"
-              >
+              <button type="button" className="white_button mr-5">
                 Register
               </button>
             </Link>
