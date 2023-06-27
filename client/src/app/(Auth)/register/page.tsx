@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
@@ -10,9 +11,15 @@ import React from 'react';
 import Image from 'next/image';
 import { registerUser } from "../../../services/auth.service";
 
+interface FormData {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 const Register = () => {
   const router = useRouter();
-  type Props = Yup.InferType<typeof schema>;
   const [isSubmitted, setIsSubmitted] = useState(false);
   const schema = Yup.object().shape({
     name: Yup.string().required(),
@@ -36,12 +43,12 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { isDirty, isValid, errors },
-  } = useForm<Props>({
+  } = useForm<FormData>({
     mode: 'all',
     resolver: yupResolver(schema),
   });
 
-  const handleValidSubmit = async (data: Props) => {
+  const handleValidSubmit = async (data: FormData) => {
     setIsSubmitted(true);
     console.log(data)
     try {

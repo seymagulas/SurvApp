@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { authHeader } from "./auth.header";
 
-const API_URL = 'http://localhost:3000';
+const API_URL = process.env.API_BASE_URL || "http://localhost:3000";
 
 interface RegisterRequest {
   name: string;
@@ -44,7 +44,7 @@ export const login = async ({ email, password }: LoginRequest) => {
       password,
     });
     if (response.data) {
-      localStorage.setItem("accessToken", JSON.stringify(response.data));
+      localStorage.setItem("accessToken", JSON.stringify(response.data.accessToken));
     }
     return response.data;
   } catch (error) {
@@ -71,7 +71,6 @@ export const getUser = async () => {
   try {
     const response = await axios.get(API_URL + "/user", {
       headers: authHeader(),
-  
     });
     if (response.data) {
       localStorage.setItem("user", JSON.stringify(response.data));

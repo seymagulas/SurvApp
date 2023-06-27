@@ -1,9 +1,6 @@
-'use client';
+'use client'
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/src/redux/store';
-
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,13 +8,15 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { getUser, login } from "../../../services/auth.service";
 
+interface FormData {
+  email: string;
+  password: string;
+}
 export default function Login() {
   const router = useRouter();
 
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
-
-  type Props = Yup.InferType<typeof schema>;
+ 
   const schema = Yup.object().shape({
     email: Yup.string().email().required(),
     password: Yup.string().required(),
@@ -27,12 +26,12 @@ export default function Login() {
     register,
     handleSubmit,
     formState: { isDirty, isValid },
-  } = useForm<Props>({
+  } = useForm<FormData>({
     mode: 'all',
     resolver: yupResolver(schema),
   });
 
-  const handleValidSubmit = async (data: Props) => {
+  const handleValidSubmit = async (data: FormData) => {
     setIsSubmitted(true);
     try {
       const response = await login({
@@ -40,8 +39,8 @@ export default function Login() {
         password: data.password,
       });
       if (response) {
-      await getUser();
-       router.push("/dashboard")
+        await getUser();
+        router.push("/dashboard")
       }
     } catch (error) {
       toast.error(error.response.data.message);
