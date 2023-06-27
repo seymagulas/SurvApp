@@ -1,4 +1,3 @@
-import RootLayout from '../layout';
 import Dashboard from './page';
 
 export const metadata = {

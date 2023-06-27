@@ -1,4 +1,7 @@
 'use client';
+import React from 'react';
+import { useAppSelector } from '@/src/redux/store';
+
 import { useState } from 'react';
 
 import { AiFillEdit } from 'react-icons/ai';
@@ -8,14 +11,17 @@ const UserProfilePage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const name = useAppSelector((state) => state.authReducer.value.username);
+
   return (
-    <div className="flex justify-center align-middle w-full">
+    <div className="flex justify-center align-middle mt-20 w-full">
       <div className="relative w-/12 p-2.5">
         <div className="flex ">
           <span className=" text-2xl mb-5 text-gray-800">
-            Update Your Profile
+            {name.toUpperCase()} Profile
           </span>
         </div>
+
         <form className="flex flex-col">
           <label className="text-lg mt-5">Profile Picture</label>
           <div className="flex items-center mt-2 mb-2">
@@ -51,6 +57,7 @@ const UserProfilePage = () => {
             className="mt-2 mb-2 h-7 border-none border-b-gray-500"
             type="password"
             placeholder="Enter new password"
+            autoComplete="off"
           />
           <button
             className=" mt-5 w-full rounded-full border border-teal-300 bg-teal-300 py-1.5 px-5 text-white transition-all hover:bg-white hover:text-teal-300 text-center text-sm font-inter flex items-center justify-center "

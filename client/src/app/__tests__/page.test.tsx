@@ -4,7 +4,7 @@ import React from 'react';
 describe('Home', () => {
   it('renders a heading', () => {
     render(<MultiChoiceQuestion />);
-    // const text = screen.getByText('Homepage');
-    // expect(text).toBeInTheDocument();
+    const text = screen.getByText('Homepage');
+    expect(text).toBeInTheDocument();
   });
 });
