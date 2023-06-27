@@ -103,6 +103,7 @@ export default function Login() {
 
               <div className="mt-2">
                 <button
+                id="login"
                   type="submit"
                   disabled={!isDirty || !isValid || isSubmitted}
                   className="disabled_button"
