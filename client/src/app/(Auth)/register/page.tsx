@@ -1,17 +1,25 @@
 'use client';
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import Image from 'next/image';
+import { registerUser } from "../../../services/auth.service";
+
+interface FormData {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 const Register = () => {
   const router = useRouter();
-  type Props = Yup.InferType<typeof schema>;
   const [isSubmitted, setIsSubmitted] = useState(false);
   const schema = Yup.object().shape({
     name: Yup.string().required(),
@@ -35,25 +43,26 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { isDirty, isValid, errors },
-  } = useForm<Props>({
+  } = useForm<FormData>({
     mode: 'all',
     resolver: yupResolver(schema),
   });
 
-  const handleValidSubmit = async (data: Props) => {
+  const handleValidSubmit = async (data: FormData) => {
     setIsSubmitted(true);
     try {
-      const response = await axios.post('/api/register', {
-        username: data.name,
+      const response = await registerUser({
+        name: data.name,
         email: data.email,
         password: data.password,
         confirmPassword: data.confirmPassword,
       });
-      if (response.status === 201) {
-        router.push('/dashboard');
+
+      if (response?.data) {
+        router.push("/login")
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response.data.message);
     }
     setIsSubmitted(false);
   };
@@ -163,3 +172,4 @@ const Register = () => {
 };
 
 export default Register;
+// passWord08?

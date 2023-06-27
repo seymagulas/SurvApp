@@ -1,11 +1,11 @@
 'use client';
+
 import React, { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { userInfo, logOut } from '@/src/redux/features/auth-slice';
 import styles from './page.module.css';
-import Login from './(Auth)/Login/page';
+import Login from './(Auth)/login/page';
 import Image from 'next/image';
-
 import { Dancing_Script } from 'next/font/google';
 
 const dans = Dancing_Script({
@@ -15,7 +15,6 @@ const dans = Dancing_Script({
 });
 
 export default function Home() {
-
 
 
   return (
@@ -33,7 +32,6 @@ export default function Home() {
           />
         </div>
           <Login/>
-        
       </div>
     </>
   );

@@ -9,7 +9,8 @@ import { useAppSelector } from '@/src/redux/store';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/redux/store';
-import { logOut } from '@src/redux/features/auth-slice';
+import { logout } from '@src/services/auth.service';
+
 const dans = Dancing_Script({
   subsets: ['latin'],
   weight: '600',
@@ -20,6 +21,11 @@ const Navbar = () => {
   const name = useAppSelector((state) => state.authReducer.value.username);
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+   
+  };
   return (
     <nav className=" w-full flex  justify-between mb-7 pt-3 ">
       <div className="flex gap-2 flex-center">
@@ -46,10 +52,9 @@ const Navbar = () => {
           <button
             type="button"
             className="white_button"
-            onClick={() => {
-              dispatch(logOut());
-              router.push('/');
-            }}
+            
+           onClick={handleLogout}
+              
           >
             Log Out
           </button>
