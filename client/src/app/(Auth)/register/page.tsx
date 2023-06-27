@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import Image from 'next/image';
-const Signup = () => {
+const Register = () => {
   const router = useRouter();
   type Props = Yup.InferType<typeof schema>;
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -142,7 +142,7 @@ const Signup = () => {
                 type="submit"
                 disabled={!isDirty || !isValid || isSubmitted}
               >
-                Sign Up
+                Register
               </button>
             </div>
           </form>
@@ -162,4 +162,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Register;

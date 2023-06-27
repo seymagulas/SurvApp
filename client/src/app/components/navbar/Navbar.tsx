@@ -48,9 +48,10 @@ const Navbar = () => {
             className="white_button"
             onClick={() => {
               dispatch(logOut());
+              router.push('/');
             }}
           >
-            Sign Out
+            Log Out
           </button>
           <Link href="/userPage">
             <Image
@@ -99,7 +100,7 @@ const Navbar = () => {
                   }}
                   className="black_button"
                 >
-                  Sign Out
+                  Log Out
                 </button>
               </Link>
             </div>
