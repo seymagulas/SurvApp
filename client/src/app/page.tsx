@@ -120,12 +120,6 @@ export default function Home() {
                 />
               </div>
 
-              <Link
-                href="/forget"
-                className="text-xs text-blue-600 hover:underline"
-              >
-                Forget Password?
-              </Link>
               <div className="mt-2">
                 <button
                   type="submit"

@@ -135,12 +135,7 @@ const Signup = () => {
               <></>
             )}
             <br />
-            <Link
-              href="/forget"
-              className="text-xs text-blue-600 hover:underline"
-            >
-              Forget Password?
-            </Link>
+
             <div className="mt-2">
               <button
                 className="disabled_button"
@@ -155,7 +150,7 @@ const Signup = () => {
           <p className="mt-4 text-sm text-center text-gray-700">
             Already have an account?{' '}
             <Link
-              href="/login"
+              href="/"
               className="font-medium text-blue-600 hover:underline"
             >
               Log in

@@ -40,9 +40,9 @@ const Navbar = () => {
       {/* Desktop navigation */}
       <div className="sm:flex hidden">
         <div className="flex gap-3 md:gap-5">
-          <Link href="/createNewSurvey" className="black_button">
+          {/* <Link href="/dashboard/createNewSurvey" className="black_button">
             Create Survey
-          </Link>
+          </Link> */}
           <button
             type="button"
             className="white_button"
