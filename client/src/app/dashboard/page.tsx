@@ -12,7 +12,7 @@ const Dashboard = () => {
       </div>
       <div className="w-full mt-10 flex justify-center items-center">
         <div>
-          <ListOfSurveys userId={userId} />
+          <ListOfSurveys />
         </div>
       </div>
     </>
