@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import {BsTrash} from "react-icons/bs";
-import {sendEmail} from "../../apiServices";
+import { shareSurvey } from "../../../services/survey.service";
 import { useSearchParams } from "next/navigation";
 
 
@@ -30,12 +30,12 @@ const Emails = (userId) => {
     setInputEmails(updatedEmails);
   }
 
-  const sendEmails = () => {
-    console.log(inputEmails);
+  const sendEmails = async () => {
     const sanitizedEmails = inputEmails.filter((email) => allowPattern.test(email));
-    console.log(sanitizedEmails)
-    sendEmail(userId, sanitizedEmails, surveyId)
-    .catch(Error)
+    const data = {
+      emails: sanitizedEmails
+    };
+    await shareSurvey({surveyId, data});
   }
 
   return (
