@@ -1,3 +1,6 @@
+import { Inter } from 'next/font/google';
+const inter = Inter({ subsets: ['latin'] });
+import Navbar from '../components/navbar/Navbar';
 import Dashboard from './page';
 
 export const metadata = {
@@ -5,10 +8,14 @@ export const metadata = {
   description: 'SurvApp-dashboard',
 };
 
-export default function DashboardLayout({ }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-      <div>
-        <Dashboard />
-      </div>
+    <>
+      <section>
+        <Navbar />
+
+        {children}
+      </section>
+    </>
   );
 }

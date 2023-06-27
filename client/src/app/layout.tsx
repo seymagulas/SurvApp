@@ -2,15 +2,14 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import React from 'react';
 const inter = Inter({ subsets: ['latin'] });
-import Navbar from './components/navbar/Navbar';
 
 import { ReduxProvider } from '../redux/provider';
 import { ToastContainer } from './ToastProvider/ToastProvider';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
-  title: 'SurvApp',
-  description: 'A Survey App',
+  title: 'Survapp',
+  description: 'A Survery App',
 };
 
 export default function RootLayout({
@@ -21,12 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main>
-          <div>
-          <Navbar />
-          {children}
-          </div>
-        </main>
+        <ReduxProvider>
+          <main>
+            <ToastContainer position="top-right" theme="colored" />
+            {children}
+          </main>
+        </ReduxProvider>
       </body>
     </html>
   );

@@ -1,22 +1,21 @@
-import ListOfSurveys from '../components/questions/ListOfSurveys'
+import ListOfSurveys from '../components/questions/ListOfSurveys';
 import Link from 'next/link';
-
-
+import React from 'react';
+import ButtonWithDropdown from '../components/ButtonWithDropdown/button';
 
 const Dashboard = () => {
   const userId: number = 45456;
-
   return (
-    <div>
-      <div>
-        <ListOfSurveys userId={userId} />
+    <>
+      <div className=" mt-44 flex justify-center items-center">
+        <ButtonWithDropdown />
       </div>
-      <div>
-        <Link href="/dashboard/createNewSurvey">
-          <input type='button' value='Create new Survey'/>
-        </Link>
+      <div className="w-full mt-10 flex justify-center items-center">
+        <div>
+          <ListOfSurveys userId={userId} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
