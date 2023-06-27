@@ -31,3 +31,6 @@ body {
 .disabled_button {
   @apply w-full rounded-lg border border-gray-700 bg-gray-700 px-5 py-2.5 text-center text-sm font-medium text-white shadow-sm transition-all hover:border-gray-900 hover:bg-gray-900 focus:ring focus:ring-gray-200 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300;
 }
+.create_button {
+  @apply rounded-full border border-black p-7 bg-transparent text-black transition-all text-center text-xl flex items-center justify-center;
+}
