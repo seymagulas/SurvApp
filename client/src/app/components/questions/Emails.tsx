@@ -4,7 +4,7 @@ import { useState } from "react";
 import {BsTrash} from "react-icons/bs";
 
 
-const Emails = () => {
+const Emails = (userId) => {
     const [inputEmails, setInputEmails] = useState<string[]>([]);
 
 
@@ -24,6 +24,9 @@ const Emails = () => {
   }
 
   const sendEmails = () => {
+
+    const userId = req.app.locals.user._id;
+    const { emails }
 // LOGIC FOR THE BE OR FE
   }
 
