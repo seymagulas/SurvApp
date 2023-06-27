@@ -9,8 +9,8 @@ import { ToastContainer } from './ToastProvider/ToastProvider';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
-  title: 'Survapp',
-  description: 'A Survery App',
+  title: 'SurvApp',
+  description: 'A Survey App',
 };
 
 export default function RootLayout({
@@ -22,11 +22,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main>
-          <main>
-            <Navbar />
-            {children}
-          </main>
+          <div>
+          <Navbar />
           {children}
+          </div>
         </main>
       </body>
     </html>
