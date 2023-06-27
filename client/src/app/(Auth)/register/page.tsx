@@ -50,7 +50,6 @@ const Register = () => {
 
   const handleValidSubmit = async (data: FormData) => {
     setIsSubmitted(true);
-    console.log(data)
     try {
       const response = await registerUser({
         name: data.name,
