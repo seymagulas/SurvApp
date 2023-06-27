@@ -4,11 +4,12 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import Image from 'next/image';
+import { registerUser } from "../../../services/auth.service";
+
 const Register = () => {
   const router = useRouter();
   type Props = Yup.InferType<typeof schema>;
@@ -42,18 +43,20 @@ const Register = () => {
 
   const handleValidSubmit = async (data: Props) => {
     setIsSubmitted(true);
+    console.log(data)
     try {
-      const response = await axios.post('/api/register', {
-        username: data.name,
+      const response = await registerUser({
+        name: data.name,
         email: data.email,
         password: data.password,
         confirmPassword: data.confirmPassword,
       });
-      if (response.status === 201) {
-        router.push('/dashboard');
+
+      if (response?.data) {
+        router.push("/login")
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response.data.message);
     }
     setIsSubmitted(false);
   };
@@ -163,3 +166,4 @@ const Register = () => {
 };
 
 export default Register;
+// passWord08?
