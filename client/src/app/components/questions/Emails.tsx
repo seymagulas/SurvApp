@@ -11,7 +11,7 @@ const Emails = (userId) => {
   const searchParams = useSearchParams();
   const surveyId = searchParams.get('id')
 
-
+  const allowPattern = /^[a-zA-Z0-9-_.@]+$/;
   const [inputEmails, setInputEmails] = useState<string[]>([]);
 
 
@@ -31,7 +31,10 @@ const Emails = (userId) => {
   }
 
   const sendEmails = () => {
-    sendEmail(userId, inputEmails, surveyId)
+    console.log(inputEmails);
+    const sanitizedEmails = inputEmails.filter((email) => allowPattern.test(email));
+    console.log(sanitizedEmails)
+    sendEmail(userId, sanitizedEmails, surveyId)
     .catch(Error)
   }
 
