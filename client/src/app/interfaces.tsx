@@ -12,3 +12,8 @@ export interface ButtonProps {
     setSurveys: Dispatch<SetStateAction<ISurvey[]>>;
     survey: ISurvey
 };
+
+
+export interface PropButtons {
+    userId: number
+  }

@@ -1,11 +1,9 @@
 'use client'
 import { useState, useEffect } from "react";
 import {surveysFromDataBase} from "../../apiServices";
-import {ISurvey} from '../../interfaces'
+import {ISurvey, PropButtons} from '../../interfaces'
 import OptionsButtons from './OptionsButtons';
-interface PropButtons {
-  userId: number
-}
+
 
 const ListOfSurveys = ({userId}: PropButtons) => {
   const [surveys, setSurveys] = useState<ISurvey[]>([]);
