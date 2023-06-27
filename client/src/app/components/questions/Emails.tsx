@@ -2,10 +2,17 @@
 
 import { useState } from "react";
 import {BsTrash} from "react-icons/bs";
+import {sendEmail} from "../../apiServices";
+import { useSearchParams } from "next/navigation";
+
 
 
 const Emails = (userId) => {
-    const [inputEmails, setInputEmails] = useState<string[]>([]);
+  const searchParams = useSearchParams();
+  const surveyId = searchParams.get('id')
+
+
+  const [inputEmails, setInputEmails] = useState<string[]>([]);
 
 
   const addInput = () => {
@@ -24,10 +31,8 @@ const Emails = (userId) => {
   }
 
   const sendEmails = () => {
-
-    const userId = req.app.locals.user._id;
-    const { emails }
-// LOGIC FOR THE BE OR FE
+    sendEmail(userId, inputEmails, surveyId)
+    .catch(Error)
   }
 
   return (

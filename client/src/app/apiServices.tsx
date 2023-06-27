@@ -1,4 +1,5 @@
 const baseURL = 'http://localhost:3001/'
+import {ParsedUrlQuery} from 'querystring';
 
 export const surveysFromDataBase = async (userId: number) => {
    return [{_id: 4545,
