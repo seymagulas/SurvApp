@@ -1,8 +1,13 @@
-import axios from "axios";
-import { toast } from "react-toastify";
-import { authHeader } from "./auth.header";
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { authHeader } from './auth.header';
 
-const API_URL = process.env.API_BASE_URL || "http://localhost:3000";
+const API_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3000';
+
+interface IUser {
+  name: string;
+  email: string;
+}
 
 interface RegisterRequest {
   name: string;
@@ -44,7 +49,10 @@ export const login = async ({ email, password }: LoginRequest) => {
       password,
     });
     if (response.data) {
-      localStorage.setItem("accessToken", JSON.stringify(response.data.accessToken));
+      localStorage.setItem(
+        'accessToken',
+        JSON.stringify(response.data.accessToken),
+      );
     }
     return response.data;
   } catch (error) {
@@ -55,12 +63,12 @@ export const login = async ({ email, password }: LoginRequest) => {
 };
 
 export const logout = () => {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("user");
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('user');
 };
 
-export const getCurrentUser = () => {
-  const userStr = localStorage.getItem("user");
+export const getCurrentUser = (): IUser | null => {
+  const userStr = localStorage.getItem('user');
   if (userStr) {
     return JSON.parse(userStr);
   }
@@ -69,11 +77,11 @@ export const getCurrentUser = () => {
 
 export const getUser = async () => {
   try {
-    const response = await axios.get(API_URL + "/user", {
+    const response = await axios.get(API_URL + '/user', {
       headers: authHeader(),
     });
     if (response.data) {
-      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem('user', JSON.stringify(response.data));
     }
     return response.data;
   } catch (error) {

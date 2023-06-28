@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { IQuestion } from './survey.service';
 
-const API_URL = process.env.REACT_APP_API_BASE_URL;
+const API_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3000';
 
 export interface IParticipantQuestion extends IQuestion {
   isLastQuestion: boolean;
@@ -32,7 +32,10 @@ export const getQuestionForParticipant = async ({
     const response = await axios.get(`${API_URL}/survey/${hash}/participate`);
     return response.data;
   } catch (error) {
-    toast.error(error.response?.data.message);
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response?.data.message);
+    }
+    throw error;
   }
 };
 
@@ -61,6 +64,8 @@ export const sendAnswer = async ({ hash, data }: ISendAnswerRequest) => {
     );
     return response;
   } catch (error) {
-    toast.error(error.response?.data.message);
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response?.data.message);
+    }
   }
 };

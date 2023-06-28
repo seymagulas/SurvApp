@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { authHeader } from './auth.header';
 
-const API_URL = process.env.REACT_APP_API_BASE_URL;
+const API_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3000';
 
 export interface IAnswerOption {
   _id?: string;
@@ -45,23 +45,32 @@ export const getAllSurveys = async (): Promise<ISurvey[]> => {
     });
     return response.data;
   } catch (error) {
-    toast.error(error.response?.data.message);
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response?.data.message);
+    }
+    throw error;
   }
 };
 
 export interface ISurveyRequest {
-  surveyId: string;
+  surveyId?: string;
 }
 export const getSurvey = async ({
   surveyId,
-}: ISurveyRequest): Promise<ISurvey> => {
+}: ISurveyRequest): Promise<ISurvey | null> => {
   try {
+    if (!surveyId) {
+      return null;
+    }
     const response = await axios.get(`${API_URL}/survey/${surveyId}`, {
       headers: authHeader(),
     });
     return response.data;
   } catch (error) {
-    toast.error(error.response?.data.message);
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response?.data.message);
+    }
+    throw error;
   }
 };
 
@@ -78,7 +87,10 @@ export const createSurvey = async ({
     });
     return response.data;
   } catch (error) {
-    toast.error(error.response?.data.message);
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response?.data.message);
+    }
+    throw error;
   }
 };
 
@@ -97,7 +109,10 @@ export const updateSurvey = async ({
     });
     return response.data;
   } catch (error) {
-    toast.error(error.response?.data.message);
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response?.data.message);
+    }
+    throw error;
   }
 };
 
@@ -108,7 +123,9 @@ export const deleteSurvey = async ({ surveyId }: ISurveyRequest) => {
     });
     return response;
   } catch (error) {
-    toast.error(error.response.data.message);
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response?.data.message);
+    }
   }
 };
 
@@ -119,7 +136,9 @@ export const publishSurvey = async ({ surveyId }: ISurveyRequest) => {
     });
     return response;
   } catch (error) {
-    toast.error(error.response.data.message);
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response?.data.message);
+    }
   }
 };
 
@@ -130,7 +149,9 @@ export const completeSurvey = async ({ surveyId }: ISurveyRequest) => {
     });
     return response;
   } catch (error) {
-    toast.error(error.response.data.message);
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response?.data.message);
+    }
   }
 };
 
@@ -152,6 +173,8 @@ export const shareSurvey = async ({ surveyId, data }: IShareSurveyRequest) => {
     );
     return response;
   } catch (error) {
-    toast.error(error.response.data.message);
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response?.data.message);
+    }
   }
 };
