@@ -1,32 +1,40 @@
 import Link from "next/link";
-import { deleteSurvey, surveysFromDataBase, updateSurvey } from "../../apiServices";
-import { ButtonProps } from "../../interfaces";
+import { ISurvey } from "../../../services/survey.service";
+import { completeSurvey, deleteSurvey, getAllSurveys, getSurvey, publishSurvey } from "../../../services/survey.service";
 
 
-const OptionsButtons = ({ setSurveys, survey }: ButtonProps) => {
+const OptionsButtons = ({ setSurveys, survey }) => {
+
   const deleteThisSurvey = () => {
     deleteSurvey(survey._id)
-      .then(() => surveysFromDataBase(survey.userId))
+      .then(() => getAllSurveys())
       .then((survey) =>
         setSurveys([...survey]))
   }
 
-  const changeSurvey = (value: string) => {
-    updateSurvey(survey._id, value, 'true')
-      .then(() => surveysFromDataBase(survey.userId))
-      .then((surveys) =>
-        setSurveys([...surveys]))
+  const changeToPublish = async () => {
+    publishSurvey(survey._id)
+      .then(() => getSurvey(survey._id))
+      .then((survey: ISurvey) =>
+        setSurveys(survey))
     }
+  const changeToComplete = async () => {
+    completeSurvey(survey._id)
+      .then(() => getSurvey(survey._id))
+      .then((survey: ISurvey) =>
+        setSurveys(survey))
+  }
+    
 
   return (
     <div>
-      {!survey.publish && (
+      {survey.status !== 'publish' || survey.status !== 'complete' && (
         <Link href="/dashboard/survey">
           <input type='button' value='Edit' />
         </Link>
       )}
-      {!survey.publish && (
-        <input type='button' value='Publish' onClick={() => changeSurvey('publish')} />
+      {survey.status !== 'publish' && (
+        <input type='button' value='Publish' onClick={() => changeToPublish()} />
       )}
       <Link href="/dashboard/createNewSurvey/sendByEmail">
         <input type='button' value='Share' />
@@ -36,8 +44,8 @@ const OptionsButtons = ({ setSurveys, survey }: ButtonProps) => {
           <input type='button' value='Statistics' />
         </Link>
       )}
-      {!survey.complete && (
-        <input type='button' value='Complete' onClick={() => changeSurvey('complete')} />
+      {survey.status === 'publish' && survey.status !== 'complete' && (
+        <input type='button' value='Complete' onClick={() => changeToComplete()} />
       )}
       <input type='button' value='Delete' onClick={() => deleteThisSurvey()} />
     </div>

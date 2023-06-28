@@ -19,7 +19,7 @@ const Dashboard = () => {
       </button>
       <div className="flex items-center  mt-10 ">
         <div>
-          <ListOfSurveys userId={userId} />
+          <ListOfSurveys />
         </div>
       </div>
     </div>
