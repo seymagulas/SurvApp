@@ -4,7 +4,7 @@ import {BsTrash} from "react-icons/bs";
 
 
 const MultiChoiceQuestion = () => {
-  const [answers, setAnswers] = useState<string[]>([]);
+  const allowPatterns = /^[a-zA-Z0-9-_.?]+$/
   const [inputValues, setInputValues] = useState<string[]>([]);
 
 
@@ -15,16 +15,21 @@ const MultiChoiceQuestion = () => {
   const addAnswer = (index:number, newTopic: string) => {
     const updatedInputValues = [...inputValues];
     updatedInputValues[index] = newTopic;
-    setAnswers(updatedInputValues);
+    setInputValues(updatedInputValues);
   }
 
   const deleteAnswer = (TopicToDelete:string) => {
-    const updatedAnswers = answers.filter((topic) => topic !== TopicToDelete);
-    setAnswers(updatedAnswers);
+    const updatedAnswers = inputValues.filter((topic) => topic !== TopicToDelete);
+    setInputValues(updatedAnswers);
   }
 
   const saveAnswers = () => {
-    setAnswers(inputValues)
+    const sanitizedAnswers = inputValues.some((charAt) => !allowPatterns.test(charAt));
+    if (sanitizedAnswers) {
+      alert(`There are not allowed characters in your answers: ${sanitizedAnswers}`)
+    } else {
+    setInputValues(inputValues)
+    }
   }
 
   return (
