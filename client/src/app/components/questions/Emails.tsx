@@ -2,10 +2,16 @@
 
 import { useState } from "react";
 import {BsTrash} from "react-icons/bs";
+import { shareSurvey } from "../../../services/survey.service";
+import { useSearchParams } from "next/navigation";
 
 
-const Emails = () => {
-  const [emailsList, setEmailsList] = useState<string[]>([]);
+
+const Emails = (userId) => {
+  const searchParams = useSearchParams();
+  const surveyId = searchParams.get('id')
+
+  const allowPattern = /^[a-zA-Z0-9-_.@]+$/;
   const [inputEmails, setInputEmails] = useState<string[]>([]);
 
 
@@ -13,19 +19,23 @@ const Emails = () => {
     setInputEmails([... inputEmails, ""])
   }
 
-  const addAnswer = (index:number, newTopic: string) => {
-    const updatedInputEmails = [...inputEmails];
-    updatedInputEmails[index] = newTopic;
-    setEmailsList(updatedInputEmails);
+  const addEmail = (index:number, newEmail: string) => {
+    const updatedEmails = [...inputEmails];
+    updatedEmails[index] = newEmail;
+    setInputEmails(updatedEmails);
   }
 
   const deleteEmail = (EmailToDelete:string) => {
-    const updatedEmails = emailsList.filter((email) => email !== EmailToDelete);
-    setEmailsList(updatedEmails);
+    const updatedEmails = inputEmails.filter((email) => email !== EmailToDelete);
+    setInputEmails(updatedEmails);
   }
 
-  const sendEmails = () => {
-// LOGIC FOR THE BE OR FE
+  const sendEmails = async () => {
+    const sanitizedEmails = inputEmails.filter((email) => allowPattern.test(email));
+    const data = {
+      emails: sanitizedEmails
+    };
+    await shareSurvey({surveyId, data});
   }
 
   return (
@@ -35,8 +45,10 @@ const Emails = () => {
       </div>
       <div className="email-list">
         {inputEmails.map((email, index) => (
-          <div key={email}>
-            <input type="text" value={email} onChange={(event) => addAnswer(index, event.target.value)}/>
+          <div key={index}>
+            <input type="text" value={email} onChange={(event) => 
+              addEmail(index, event.target.value)}
+              placeholder="Email to send..."/>
               <BsTrash onClick={() => deleteEmail(email)}/>
           </div>
         ))}
