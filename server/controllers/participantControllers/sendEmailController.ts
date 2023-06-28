@@ -12,7 +12,6 @@ const BASE_URL = process.env.BASE_URL;
 
 export const sendEmailController = async (req: Request, res: Response) => {
   try {
-    console.log("hit");
     const surveyId = req.params.id;
     const userId = req.app.locals.user._id;
     const { emails } = req.body as SendEmailsRequest;
@@ -32,7 +31,7 @@ export const sendEmailController = async (req: Request, res: Response) => {
 
     emails.forEach((email) => {
       const hash = generateHash();
-      const url = `${BASE_URL}/survey?hash=${hash}`;
+      const url = `${BASE_URL}/participant?hash=${hash}`;
       const subject = "Please take our survey";
       const body = `Dear participant,\n\nWe would like to invite you to take our survey.\n\nPlease click on the following link to access the survey:\n\n${url}\n\nThank you for your participation!\n\nBest regards,\nThe SurvApp Team`;
       sendEmail({ recipient: email, subject, body });
