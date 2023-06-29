@@ -17,27 +17,27 @@ interface FormData {
   confirmPassword: string;
 }
 
+const schema = Yup.object().shape({
+  name: Yup.string().required(),
+  email: Yup.string().email().required(),
+  password: Yup.string()
+    .required()
+    .matches(
+      /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
+      'Password should contains a lowercase, a uppercase character and a digit.',
+    ),
+  confirmPassword: Yup.string()
+    .required()
+    .matches(
+      /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
+      'Password should contains a lowercase, a uppercase character and a digit.',
+    )
+    .oneOf([Yup.ref('password')]),
+});
+
 const Register: React.FC = () => {
   const navigate = useNavigate();
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const schema = Yup.object().shape({
-    name: Yup.string().required(),
-    email: Yup.string().email().required(),
-    password: Yup.string()
-      .required()
-      .matches(
-        /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
-        'Password should contains a lowercase, a uppercase character and a digit.',
-      ),
-    confirmPassword: Yup.string()
-      .required()
-      .matches(
-        /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
-        'Password should contains a lowercase, a uppercase character and a digit.',
-      )
-      .oneOf([Yup.ref('password')]),
-  });
 
   const {
     register,
@@ -91,7 +91,7 @@ const Register: React.FC = () => {
                 htmlFor="name"
                 className="block text-sm font-semibold text-gray-800"
               >
-                Username
+                Name
               </label>
               <input
                 type="text"
@@ -123,6 +123,7 @@ const Register: React.FC = () => {
               </label>
               <input
                 type="password"
+                id="password"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 {...register('password')}
               />
@@ -135,16 +136,14 @@ const Register: React.FC = () => {
                 Confirm Password
               </label>
               <input
-                type="confirmPassword"
+                type="password"
                 id="confirmPassword"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 {...register('confirmPassword')}
               />
             </div>
-            {errors.confirmPassword ? (
+            {errors.confirmPassword && (
               <span className="error">{'Password does not match'}</span>
-            ) : (
-              <></>
             )}
             <br />
 
