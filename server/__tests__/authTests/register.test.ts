@@ -11,11 +11,11 @@ beforeAll(async () => {
   await mongoose.disconnect();
 });
 
-beforeEach(async () => {
-  await connectDBforTesting();
-});
-
 describe('check register functionality', () => {
+  beforeAll(async () => {
+    await connectDBforTesting();
+    await UserModel.deleteMany();
+  });
   afterAll(async () => {
     await UserModel.deleteMany();
     await disconnectDBForTesting();

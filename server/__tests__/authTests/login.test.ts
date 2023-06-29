@@ -24,6 +24,7 @@ describe('check login functionality', () => {
   afterAll(async () => {
     await UserModel.deleteMany();
     await disconnectDBForTesting();
+    await mongoose.disconnect();
   });
 
   test('register a user', async () => {
