@@ -1,22 +1,19 @@
-'use client';
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   IAnswerOption,
   IQuestion,
   QuestionChoiceType,
 } from '../../services/survey.service';
-import { useLocation, useOutletContext } from 'react-router-dom';
+import { useOutletContext, useNavigate } from 'react-router-dom';
 import { ISurveyProvider } from '../../providers/SurveyProvider';
+import { BsTrash } from 'react-icons/bs';
 
 const QuestionForm = () => {
-  const { state } = useLocation();
-  const surveyId = state.surveyId;
-  const { questions, setQuestions } = useOutletContext<ISurveyProvider>();
+  const navigate = useNavigate();
 
+  const { questions, setQuestions } = useOutletContext<ISurveyProvider>();
   const [currentQuestion, setCurrentQuestion] = useState<string>('');
   const [currentOptions, setCurrentOptions] = useState<IAnswerOption[]>([]);
-  const [currentOption, setCurrentOption] = useState<string>('');
   const [questionType, setQuestionType] = useState<QuestionChoiceType>(
     QuestionChoiceType.multiChoice,
   );
@@ -31,14 +28,26 @@ const QuestionForm = () => {
     setQuestions([...questions, newQuestion]);
     setCurrentQuestion('');
     setCurrentOptions([]);
-    setCurrentOption('');
     setQuestionType(QuestionChoiceType.multiChoice);
+    console.log(newQuestion);
+    navigate('/survey/new');
   };
 
-  const deleteQuestion = (index: number) => {
-    const updatedQuestions = [...questions];
-    updatedQuestions.splice(index, 1);
-    setQuestions(updatedQuestions);
+  const addOption = (index: number, newOption: string) => {
+    const updatedOptions = [...currentOptions];
+    updatedOptions[index].text = newOption;
+    setCurrentOptions(updatedOptions);
+  };
+
+  const addInput = () => {
+    setCurrentOptions([...currentOptions, { text: '' }]);
+  };
+
+  const deleteOption = (text: string) => {
+    const updatedOptions = currentOptions.filter(
+      (options) => options.text !== text,
+    );
+    setCurrentOptions(updatedOptions);
   };
 
   return (
@@ -49,7 +58,8 @@ const QuestionForm = () => {
         Question:
         <input
           type="text"
-          className="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md"
+          placeholder="Add your question..."
+          className="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md pl-2"
           value={currentQuestion}
           onChange={(e) => setCurrentQuestion(e.target.value)}
         />
@@ -71,35 +81,41 @@ const QuestionForm = () => {
         </select>
       </label>
 
-      <div className="mb-4">
-        Options:
-        <ul className="list-disc list-inside">
-          {currentOptions.map((option, index) => (
-            <li key={index}>{option.text}</li>
-          ))}
-        </ul>
-        <input
-          type="text"
-          className="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md"
-          value={currentOption}
-          onChange={(e) => setCurrentOption(e.target.value)}
-        />
-        <button
-          className="mt-2 px-4 py-2 bg-indigo-500 text-white rounded-md"
-          onClick={() =>
-            setCurrentOptions([...currentOptions, { text: currentOption }])
-          }
-        >
-          Add Option
-        </button>
-      </div>
+      {questionType === QuestionChoiceType.multiChoice && (
+        <div className="mb-4">
+          Options:
+          <div className="list-disc list-inside">
+            {currentOptions.map((option, index) => (
+              <div key={index}>
+                <input
+                  type="text"
+                  className="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md pl-2"
+                  value={option.text}
+                  placeholder="Add your answer..."
+                  onChange={(e) => addOption(index, e.target.value)}
+                />
+                <BsTrash onClick={() => deleteOption(option.text)} />
+              </div>
+            ))}
+            <button
+              className="mt-2 px-4 py-2 bg-indigo-500 text-white rounded-md"
+              onClick={() => addInput()}
+            >
+              Add Option
+            </button>
+          </div>
+        </div>
+      )}
 
-      <button
-        className="px-4 py-2 bg-indigo-500 text-white rounded-md"
-        onClick={addQuestion}
-      >
-        Add Question
-      </button>
+      {(questionType === QuestionChoiceType.range ||
+        currentOptions.length > 0) && (
+        <button
+          className="px-4 py-2 bg-indigo-500 text-white rounded-md"
+          onClick={addQuestion}
+        >
+          Add Question
+        </button>
+      )}
     </div>
   );
 };

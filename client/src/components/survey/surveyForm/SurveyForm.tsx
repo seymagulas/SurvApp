@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SurveyForm: React.FC = () => {
-  return <></>;
+  return <></>
 };
 
 export default SurveyForm;

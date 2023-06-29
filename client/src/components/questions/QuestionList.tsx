@@ -8,9 +8,9 @@ interface IQuestionListProps {
 const QuestionList: React.FC<IQuestionListProps> = ({ questions }) => {
   return (
     <>
-      {questions.map((question) => {
-        <p>{question.text}</p>;
-      })}
+      {questions.map((question) => (
+        <p key={question.text}>{question.text}</p>
+      ))}
     </>
   );
 };
