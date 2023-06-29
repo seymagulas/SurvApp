@@ -1,5 +1,5 @@
 'use client';
-​
+
 import { Link } from 'react-router-dom';
 import { ISurvey, SurveyStatus } from '../../../services/survey.service';
 import {
@@ -7,12 +7,12 @@ import {
   deleteSurvey,
   publishSurvey,
 } from '../../../services/survey.service';
-​
+
 interface OptionButtonsProps {
   handleGetAllSurveys: () => void;
   survey: ISurvey;
 }
-​
+
 const OptionsButtons: React.FC<OptionButtonsProps> = ({
   handleGetAllSurveys,
   survey,
@@ -20,15 +20,15 @@ const OptionsButtons: React.FC<OptionButtonsProps> = ({
   const deleteThisSurvey = () => {
     deleteSurvey({ surveyId: survey._id }).then(() => handleGetAllSurveys());
   };
-​
+
   const changeToPublish = async () => {
     publishSurvey({ surveyId: survey._id }).then(() => handleGetAllSurveys());
   };
-​
+
   const changeToComplete = async () => {
     completeSurvey({ surveyId: survey._id }).then(() => handleGetAllSurveys());
   };
-​
+
   return (
     <div>
       {survey.status === SurveyStatus.new && (
@@ -64,5 +64,5 @@ const OptionsButtons: React.FC<OptionButtonsProps> = ({
     </div>
   );
 };
-​
+
 export default OptionsButtons;

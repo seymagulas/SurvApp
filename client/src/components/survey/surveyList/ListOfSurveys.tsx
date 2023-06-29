@@ -1,14 +1,14 @@
 'use client';
-​
+
 import { useState, useEffect } from 'react';
 import { getAllSurveys } from '../../../services/survey.service';
 import { ISurvey } from '../../../services/survey.service';
 import OptionsButtons from './OptionsButtons';
-​
+
 const ListOfSurveys = () => {
   const [surveys, setSurveys] = useState<ISurvey[]>([]);
   const [optionsButtons, setOptionsButtons] = useState<boolean>(false);
-​
+
   const handleGetAllSurveys = () => {
     getAllSurveys()
       .then((surveys: ISurvey[]) => {
@@ -18,15 +18,15 @@ const ListOfSurveys = () => {
         console.log(error);
       });
   };
-​
+
   useEffect(() => {
     handleGetAllSurveys();
   }, []);
-​
+
   const showOptionsButtons = () => {
     setOptionsButtons(!optionsButtons);
   };
-​
+
   return (
     <div>
       {surveys ? (
@@ -57,5 +57,5 @@ const ListOfSurveys = () => {
     </div>
   );
 };
-​
+
 export default ListOfSurveys;
