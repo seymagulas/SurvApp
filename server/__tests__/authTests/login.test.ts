@@ -19,7 +19,6 @@ beforeAll(async () => {
 describe('check login functionality', () => {
   beforeAll(async () => {
     await connectDBforTesting();
-    await UserModel.deleteMany();
   });
   afterAll(async () => {
     await UserModel.deleteMany();
@@ -27,19 +26,18 @@ describe('check login functionality', () => {
     await mongoose.disconnect();
   });
 
-  test('register a user', async () => {
-    const data = {
-      name: 'Mark',
-      email: 'mark@mail.com',
-      password: 'Blog1',
-      confirmPassword: 'Blog1',
-    };
-    await supertest(app).post('/register').send(data).expect(201);
-  });
-
   test('login with proper credentials & return an access token', async () => {
+    const password = await bcrypt.hash('Blog1', 10);
+    const user = new UserModel({
+      name: 'User',
+      email: 'user@mail.com',
+      password,
+      confirmPassword: password,
+    });
+    await user.save();
+
     const data = {
-      email: 'mark@mail.com',
+      email: 'user@mail.com',
       password: 'Blog1',
     };
     await supertest(app)
@@ -87,13 +85,13 @@ describe('check login functionality', () => {
   test('should verify the access token with the secret key', async () => {
     const password = await bcrypt.hash('Blog1', 10);
     const user = await UserModel.create({
-      name: 'User',
-      email: 'user@mail.com',
+      name: 'jack',
+      email: 'jack@mail.com',
       password,
       confirmPassword: password,
     });
     const response = await supertest(app).post('/login').send({
-      email: 'user@mail.com',
+      email: 'jack@mail.com',
       password: 'Blog1',
     });
     expect(response.status).toBe(200);

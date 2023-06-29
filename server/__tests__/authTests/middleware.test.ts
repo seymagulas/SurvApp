@@ -14,12 +14,11 @@ beforeAll(async (): Promise<void> => {
   await mongoose.disconnect();
 });
 
-beforeEach(async (): Promise<void> => {
-  await connectDBforTesting();
-});
-
 describe('check middleware functionality', (): void => {
-  afterAll(async (): Promise<void> => {
+  beforeAll(async () => {
+    await connectDBforTesting();
+  });
+  afterAll(async () => {
     await UserModel.deleteMany();
     await disconnectDBForTesting();
     await mongoose.disconnect();
