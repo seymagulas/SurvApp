@@ -1,55 +1,68 @@
-import { Link } from "react-router-dom";
-import { ISurvey } from "../../../services/survey.service";
-import { completeSurvey, deleteSurvey, getAllSurveys, getSurvey, publishSurvey } from "../../../services/survey.service";
+'use client';
 
+import { Link } from 'react-router-dom';
+import { ISurvey, SurveyStatus } from '../../../services/survey.service';
+import {
+  completeSurvey,
+  deleteSurvey,
+  publishSurvey,
+} from '../../../services/survey.service';
 
-const OptionsButtons = ({ setSurveys, survey }) => {
+interface OptionButtonsProps {
+  handleGetAllSurveys: () => void;
+  survey: ISurvey;
+}
 
+const OptionsButtons: React.FC<OptionButtonsProps> = ({
+  handleGetAllSurveys,
+  survey,
+}: OptionButtonsProps) => {
   const deleteThisSurvey = () => {
-    deleteSurvey(survey._id)
-      .then(() => getAllSurveys())
-      .then((survey) =>
-        setSurveys([...survey]))
-  }
+    deleteSurvey({ surveyId: survey._id }).then(() => handleGetAllSurveys());
+  };
 
   const changeToPublish = async () => {
-    publishSurvey(survey._id)
-      .then(() => getSurvey(survey._id))
-      .then((survey: ISurvey) =>
-        setSurveys(survey))
-    }
+    publishSurvey({ surveyId: survey._id }).then(() => handleGetAllSurveys());
+  };
+
   const changeToComplete = async () => {
-    completeSurvey(survey._id)
-      .then(() => getSurvey(survey._id))
-      .then((survey: ISurvey) =>
-        setSurveys(survey))
-  }
-    
+    completeSurvey({ surveyId: survey._id }).then(() => handleGetAllSurveys());
+  };
 
   return (
     <div>
-      {survey.status !== 'publish' || survey.status !== 'complete' && (
-        <Link to="/dashboard/survey">
-          <input type='button' value='Edit' />
+      {survey.status === SurveyStatus.new && (
+        <Link to={`/survey/${survey._id}/edit`}>
+          <input type="button" value="Edit" />
         </Link>
       )}
-      {survey.status !== 'publish' && (
-        <input type='button' value='Publish' onClick={() => changeToPublish()} />
+      {survey.status === SurveyStatus.new && (
+        <input
+          type="button"
+          value="Publish"
+          onClick={() => changeToPublish()}
+        />
       )}
-      <Link to="/dashboard/createNewSurvey/sendByEmail">
-        <input type='button' value='Share' />
-      </Link>
-      {survey.complete && (
-        <Link to="/dashboard/statistic">
-          <input type='button' value='Statistics' />
+      {survey.status === SurveyStatus.published && (
+        <Link to={`/survey/${survey._id}/send-by-email"`}>
+          <input type="button" value="Share" />
         </Link>
       )}
-      {survey.status === 'publish' && survey.status !== 'complete' && (
-        <input type='button' value='Complete' onClick={() => changeToComplete()} />
+      {survey.status !== SurveyStatus.new && (
+        <Link to="/statistic">
+          <input type="button" value="Statistics" />
+        </Link>
       )}
-      <input type='button' value='Delete' onClick={() => deleteThisSurvey()} />
+      {survey.status === SurveyStatus.published && (
+        <input
+          type="button"
+          value="Complete"
+          onClick={() => changeToComplete()}
+        />
+      )}
+      <input type="button" value="Delete" onClick={() => deleteThisSurvey()} />
     </div>
-    )
-}
+  );
+};
 
 export default OptionsButtons;
