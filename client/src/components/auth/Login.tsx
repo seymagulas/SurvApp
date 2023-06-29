@@ -60,7 +60,7 @@ const Login: React.FC = () => {
         <div className="mr-20">
           <img
             src="/assests/images/survapp.gif"
-            alt="GIF"
+            alt="flying messages"
             width={450}
             height={450}
           />
@@ -76,7 +76,7 @@ const Login: React.FC = () => {
                   htmlFor="name"
                   className="block text-sm font-semibold text-gray-800"
                 >
-                  Username
+                  Email
                 </label>
                 <input
                   type="text"
