@@ -1,26 +1,31 @@
 import supertest from 'supertest';
 import { UserModel } from '../../models/userModel';
 import bcrypt from 'bcrypt';
+import mongoose, { ConnectOptions } from 'mongoose';
 import jwt from 'jsonwebtoken';
-import { DecodedJwtPayload } from '../Interfaces';
-import { createServer, disconnectDBForTesting, connectDBforTesting } from './register.test';
+import { DecodedJwtPayload } from '../interfaces';
+
 import dotenv from 'dotenv';
+
+import { disconnectDBForTesting, connectDBforTesting, createServer } from '../utilis';
 dotenv.config();
 
 const app = createServer();
-beforeAll(async () => {
-  await disconnectDBForTesting();
-});
 
-beforeEach(async () => {
-  await connectDBforTesting();
+beforeAll(async () => {
+  await mongoose.disconnect();
 });
 
 describe('check login functionality', () => {
+  beforeAll(async () => {
+    await connectDBforTesting();
+    await UserModel.deleteMany();
+  });
   afterAll(async () => {
     await UserModel.deleteMany();
     await disconnectDBForTesting();
   });
+
   test('register a user', async () => {
     const data = {
       name: 'Mark',
@@ -28,13 +33,7 @@ describe('check login functionality', () => {
       password: 'Blog1',
       confirmPassword: 'Blog1',
     };
-    await supertest(app)
-      .post('/register')
-      .send(data)
-      .then(async (response) => {
-        expect(response.status).toBe(201);
-        expect(response.body).toEqual({});
-      });
+    await supertest(app).post('/register').send(data).expect(201);
   });
 
   test('login with proper credentials & return an access token', async () => {
@@ -45,10 +44,11 @@ describe('check login functionality', () => {
     await supertest(app)
       .post('/login')
       .send(data)
-      .then(async (response) => {
-        expect(response.status).toBe(200);
-        expect(response.body).toHaveProperty('accessToken');
-        expect(typeof response.body.accessToken).toBe('string');
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .expect((res) => {
+        expect(res.body).toHaveProperty('accessToken');
+        expect(typeof res.body.accessToken).toBe('string');
       });
   });
 
@@ -60,22 +60,27 @@ describe('check login functionality', () => {
     await supertest(app)
       .post('/login')
       .send(data)
-      .then(async (response) => {
-        expect(response.status).toBe(422);
-        expect(response.body).toHaveProperty('message', 'Username or password is not correct.');
+      .expect(422)
+      .expect('Content-Type', /json/)
+      .expect((res) => {
+        expect(res.body).toHaveProperty('message', 'Username or password is not correct.');
       });
   });
 
-  test('login should return a server error for an unexpected exception', async () => {
-    jest.spyOn(UserModel, 'findOne').mockImplementationOnce(() => {
-      throw new Error('Unexpected exception');
-    });
-    const response = await supertest(app).post('/login').send({
-      email: 'mark@mail.com',
-      password: 'Blog1',
-    });
-    expect(response.status).toBe(500);
-    expect(response.body).toHaveProperty('message', 'Server error');
+  test('should return a server error when an error occurs during login', async () => {
+    jest.spyOn(UserModel, 'findOne').mockRejectedValueOnce(null);
+
+    await supertest(app)
+      .post('/login')
+      .send({
+        email: 'edward@example.com',
+        password: 'password123',
+      })
+      .expect(500)
+      .expect('Content-Type', /json/)
+      .expect((res) => {
+        expect(res.body).toHaveProperty('message', 'Server error');
+      });
   });
 
   test('should verify the access token with the secret key', async () => {

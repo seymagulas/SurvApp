@@ -1,50 +1,25 @@
 import mongoose, { ConnectOptions } from 'mongoose';
 import supertest from 'supertest';
 import dotenv from 'dotenv';
-import cors from 'cors';
-import { router } from '../../router';
-import express, { Express, Request, Response } from 'express';
+
 import { UserModel } from '../../models/userModel';
-
+import { disconnectDBForTesting, connectDBforTesting, createServer } from './../utilis';
 dotenv.config();
-
-export function createServer() {
-  const app: Express = express();
-  app.use(cors({ origin: true }));
-  app.use(express.json());
-  app.use(router);
-  return app;
-}
-
-export async function disconnectDBForTesting() {
-  try {
-    await mongoose.connection.close();
-  } catch (error) {
-    console.log('DB disconnect error');
-  }
-}
+const app = createServer();
 
 beforeAll(async () => {
-  await disconnectDBForTesting();
+  await mongoose.disconnect();
 });
-
-export async function connectDBforTesting() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/tesb', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  } as ConnectOptions);
-}
 
 beforeEach(async () => {
   await connectDBforTesting();
 });
 
-const app = createServer();
-
 describe('check register functionality', () => {
   afterAll(async () => {
     await UserModel.deleteMany();
     await disconnectDBForTesting();
+    await mongoose.disconnect();
   });
   test('should register a new user', async () => {
     const data = {
@@ -107,21 +82,27 @@ describe('check register functionality', () => {
     expect(response.body.message).toBe('Password cannot be empty.');
   });
 
-  it('should return a server error when an error occurs during registration', async () => {
-    // Mock an error during registration by throwing an exception
-    jest.spyOn(UserModel, 'create').mockImplementationOnce(() => {
-      throw new Error('Registration failed');
+  test('should return a server error when an error occurs during registration', async () => {
+    const createMock = jest.spyOn(UserModel, 'create').mockImplementation(() => {
+      console.log('Registration failed');
+      return Promise.reject();
     });
 
-    const response = await supertest(app).post('/register').send({
-      name: 'Edward',
-      email: 'edward@example.com',
-      password: 'password123',
-      confirmPassword: 'password123',
-    });
+    try {
+      const response = await supertest(app).post('/register').send({
+        name: 'Edward',
+        email: 'edward@example.com',
+        password: 'password123',
+        confirmPassword: 'password123',
+      });
 
-    expect(response.status).toBe(500);
-
-    expect(response.body.message).toBe('Server error');
+      expect(response.status).toBe(500);
+      expect(response.body.message).toBe('Server error');
+    } catch (error) {
+      console.error(error);
+      throw error;
+    } finally {
+      createMock.mockRestore();
+    }
   });
 });
