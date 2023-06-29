@@ -29,13 +29,14 @@ beforeEach(async () => {
 
 /* Closing database connection after each test. */
 afterEach(async () => {
-  await UserModel.deleteMany();
+  //   await UserModel.deleteMany();
 
   disconnectDBForTesting();
 });
 
 const app = createServer();
 
+describe;
 test('POST /register', async () => {
   const data = {
     name: 'Malt',
@@ -45,4 +46,22 @@ test('POST /register', async () => {
   };
 
   await supertest(app).post('/register').send(data).expect(201);
+});
+
+test('POST /login', async () => {
+  const data = {
+    email: 'malt@mail.com',
+    password: 'Blog1',
+  };
+
+  await supertest(app).post('/login').send(data).expect(200);
+});
+
+test('POST /login', async () => {
+  const data = {
+    email: 'mal@mail.com',
+    password: 'Blog1',
+  };
+
+  await supertest(app).post('/login').send(data).expect(422);
 });
