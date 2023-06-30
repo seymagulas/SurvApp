@@ -131,9 +131,13 @@ export const deleteSurvey = async ({ surveyId }: ISurveyRequest) => {
 
 export const publishSurvey = async ({ surveyId }: ISurveyRequest) => {
   try {
-    const response = await axios.put(`${API_URL}/survey/${surveyId}/publish`, {
-      headers: authHeader(),
-    });
+    const response = await axios.put(
+      `${API_URL}/survey/${surveyId}/publish`,
+      {},
+      {
+        headers: authHeader(),
+      },
+    );
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -144,9 +148,13 @@ export const publishSurvey = async ({ surveyId }: ISurveyRequest) => {
 
 export const completeSurvey = async ({ surveyId }: ISurveyRequest) => {
   try {
-    const response = await axios.put(`${API_URL}/survey/${surveyId}/complete`, {
-      headers: authHeader(),
-    });
+    const response = await axios.put(
+      `${API_URL}/survey/${surveyId}/complete`,
+      {},
+      {
+        headers: authHeader(),
+      },
+    );
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
