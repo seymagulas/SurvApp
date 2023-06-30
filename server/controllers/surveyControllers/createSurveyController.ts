@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-import { Request, Response } from "express";
-import { SurveyModel } from "../../models/surveyModel";
-import { validateSurveyRequest } from "./utils";
-import { SurveyRequest } from "./interfaces";
+import { Request, Response } from 'express';
+import { SurveyModel } from '../../models/surveyModel';
+import { validateSurveyRequest } from './utils';
+import { SurveyRequest } from './interfaces';
 
 export const createSurvey = async (req: Request, res: Response) => {
   try {
@@ -25,7 +25,7 @@ export const createSurvey = async (req: Request, res: Response) => {
       res.status(422).send({ message: error.message });
     } else {
       console.log(error);
-      res.status(500).send({ message: "Server error" });
+      res.status(500).send({ message: 'Server error' });
     }
   }
 };
