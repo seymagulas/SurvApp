@@ -38,9 +38,6 @@ const ListOfSurveys = () => {
     handleGetAllSurveys();
   }, []);
 
-  const handleOpenEdit = (surveyId: string) => {
-    // openEditQuestion(question);
-  };
 
   const handleDelete = (id: string) => {
     deleteSurvey({ surveyId: id }).then(() =>
