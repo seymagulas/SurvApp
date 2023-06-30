@@ -9,9 +9,10 @@ import EmailsPage from './components/share/emailShare';
 import Main from './components/main/Main';
 import Survey from './components/survey/Survey';
 import Statistics from './components/statistics/Statistics';
-import Participant from './components/participant/Participant';
 import SurveyProvider from './providers/SurveyProvider';
 import QuestionForm from './components/questions/QuestionForm';
+import Participant from './components/participant/Participant';
+import ParticipantQuestions from './components/participant/ParticipantQuestions';
 
 const AppRouter: React.FC = () => {
   const location = useLocation();
@@ -36,6 +37,10 @@ const AppRouter: React.FC = () => {
           <Route path="/survey/:id/stats" element={<Statistics />} />
         </Route>
         <Route path="/participant" element={<Participant />} />
+        <Route
+          path="/participant/questions"
+          element={<ParticipantQuestions />}
+        />
       </Routes>
     </>
   );
