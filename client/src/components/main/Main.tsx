@@ -11,12 +11,12 @@ const Main: React.FC = () => {
     <div className="flex flex-col items-center content-center w-full">
       <button
         type="button"
-        className=" space-x-1 border w-1/6 border-gray-300 bg-white text-gray-700 hover:bg-gray-50 rounded px-4 py-2 focus:outline-none"
+        className="space-x-1 border w-1/6 border-gray-300 bg-white text-gray-700 hover:bg-gray-50 rounded px-4 py-2 focus:outline-none"
         onClick={() => {
           navigate('/survey/new');
         }}
       >
-        <span>Create Survey</span>
+        <span> + Create Survey</span>
       </button>
       <div className="flex items-center mt-10 ">
         <div>
