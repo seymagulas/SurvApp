@@ -6,8 +6,9 @@ import { IQuestion } from './survey.service';
 
 const API_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3000';
 
-export interface IParticipantQuestion extends IQuestion {
+export interface IParticipantQuestion {
   isLastQuestion: boolean;
+  question: IQuestion;
 }
 
 export interface IGetQuestionForParticipantRequest {

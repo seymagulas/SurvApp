@@ -15,18 +15,16 @@ const ParticipantQuestions: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchQuestion = async () => {
-      try {
-        const response = await getQuestionForParticipant({
-          hash: location.state.hash,
-        });
+    getQuestionForParticipant({
+      hash: location.state.hash,
+    })
+      .then((response) => {
+        console.log(response);
         setParticipantQuestion(response);
-      } catch (error) {
+      })
+      .catch((error) => {
         toast.error('Failed to fetch question');
-      }
-    };
-
-    fetchQuestion();
+      });
   }, [location.state.hash]);
 
   const handleNextQuestion = async () => {
@@ -34,7 +32,7 @@ const ParticipantQuestions: React.FC = () => {
       await sendAnswer({
         hash: location.state.hash,
         data: {
-          questionId: participantQuestion?._id,
+          questionId: participantQuestion?.question._id,
           answerId: selectedAnswer,
           isFinished: false,
         },
@@ -54,7 +52,7 @@ const ParticipantQuestions: React.FC = () => {
       await sendAnswer({
         hash: location.state.hash,
         data: {
-          questionId: participantQuestion?._id,
+          questionId: participantQuestion?.question._id,
           answerId: selectedAnswer,
           isFinished: true,
         },
@@ -75,10 +73,10 @@ const ParticipantQuestions: React.FC = () => {
 
   return (
     <div>
-      <h3>{participantQuestion.text}</h3>
+      <h3>{participantQuestion.question.text}</h3>
       <div>
-        {participantQuestion.answerOptions &&
-          participantQuestion.answerOptions.map((answer) => (
+        {participantQuestion.question.answerOptions &&
+          participantQuestion.question.answerOptions.map((answer) => (
             <div key={answer._id}>
               <input
                 type="radio"

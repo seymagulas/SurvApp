@@ -20,7 +20,8 @@ const AppRouter: React.FC = () => {
     <>
       {location.pathname !== '/login' &&
         location.pathname !== '/register' &&
-        location.pathname !== '/participant' && <Navbar />}
+        location.pathname !== '/finish' &&
+        !location.pathname.startsWith('/participant') && <Navbar />}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
