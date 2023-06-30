@@ -42,7 +42,7 @@ export const getQuestionForParticipant = async ({
 export interface ISendAnswerRequest {
   hash: string;
   data: {
-    questionId: string;
+    questionId?: string;
     answerId: string;
     isFinished: boolean;
   };
@@ -58,6 +58,9 @@ export interface ISendAnswerRequest {
  */
 export const sendAnswer = async ({ hash, data }: ISendAnswerRequest) => {
   try {
+    if (typeof data.questionId === 'undefined') {
+      return;
+    }
     const response = await axios.post(
       `${API_URL}/survey/${hash}/participate`,
       data,
