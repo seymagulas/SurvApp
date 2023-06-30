@@ -16,6 +16,8 @@ import {
   RiFolderLockLine,
   RiLockLine,
 } from 'react-icons/ri';
+
+import { BsGraphUpArrow } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 
 const ListOfSurveys = () => {
@@ -64,23 +66,23 @@ const ListOfSurveys = () => {
             <div key={survey._id} className="question-div flex mb-2">
               <div className="border border-gray-300 rounded-md p-2 flex-grow">
                 <div className="flex items-center justify-between">
-                  <p className="flex-grow-1">{survey.name}</p>
-                  <div className="flex justify-between">
+                  <p className="flex-grow-1 mr-6">{survey.name}</p>
+                  <div className="flex justify-center">
                     {survey.status === SurveyStatus.new && (
                       <RiEdit2Fill
-                        className="action-button m1-2"
+                        className="action-button m3"
                         onClick={() => {
                           navigate(`/survey/${survey._id}/edit`);
                         }}
                       />
                     )}
                     <RiDeleteBin6Line
-                      className="action-button m1-2"
+                      className="action-button m3"
                       onClick={() => handleDelete(survey._id ?? '')}
                     />
                     {survey.status === SurveyStatus.published && (
                       <RiShareLine
-                        className="action-button m1-2"
+                        className="action-button m3"
                         onClick={() => {
                           navigate(`/survey/${survey._id}/send-by-email`);
                         }}
@@ -88,14 +90,22 @@ const ListOfSurveys = () => {
                     )}
                     {survey.status === SurveyStatus.new && (
                       <RiFolderLockLine
-                        className="action-button m1-2"
+                        className="action-button m3"
                         onClick={() => handlePublish(survey._id ?? '')}
                       />
                     )}
                     {survey.status === SurveyStatus.published && (
                       <RiLockLine
-                        className="action-button m1-2"
+                        className="action-button m3"
                         onClick={() => handleComplete(survey._id ?? '')}
+                      />
+                    )}
+                    {survey.status === SurveyStatus.completed && (
+                      <BsGraphUpArrow
+                        className="action-button m3"
+                        onClick={() => {
+                          navigate(`/survey/${survey._id}/stats`);
+                        }}
                       />
                     )}
                   </div>
