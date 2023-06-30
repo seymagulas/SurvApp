@@ -18,25 +18,41 @@ const QuestionForm = () => {
     QuestionChoiceType.multiChoice,
   );
 
-  const addQuestion = () => {
-    const newQuestion: IQuestion = {
-      text: currentQuestion,
-      answerOptions: currentOptions,
-      choiceType: questionType,
-    };
+  const allowPatterns = /^[a-zA-Z0-9-_.?]+$/;
 
-    setQuestions([...questions, newQuestion]);
-    setCurrentQuestion('');
-    setCurrentOptions([]);
-    setQuestionType(QuestionChoiceType.multiChoice);
-    console.log(newQuestion);
-    navigate('/survey/new');
+  const sanitizeCode = (value: string) => {
+    const codeSanitized = !allowPatterns.test(value);
+    if (codeSanitized) {
+      alert(
+        'The survey name should just include numeric and alphabet characters',
+      );
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const addQuestion = () => {
+    if (sanitizeCode(currentQuestion)) {
+      const newQuestion: IQuestion = {
+        text: currentQuestion,
+        answerOptions: currentOptions,
+        choiceType: questionType,
+      };
+      setQuestions([...questions, newQuestion]);
+      setCurrentQuestion('');
+      setCurrentOptions([]);
+      setQuestionType(QuestionChoiceType.multiChoice);
+      navigate('/survey/new');
+    }
   };
 
   const addOption = (index: number, newOption: string) => {
-    const updatedOptions = [...currentOptions];
-    updatedOptions[index].text = newOption;
-    setCurrentOptions(updatedOptions);
+    if (sanitizeCode(newOption)) {
+      const updatedOptions = [...currentOptions];
+      updatedOptions[index].text = newOption;
+      setCurrentOptions(updatedOptions);
+    }
   };
 
   const addInput = () => {
@@ -59,7 +75,7 @@ const QuestionForm = () => {
         <input
           type="text"
           placeholder="Add your question..."
-          className="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md pl-2"
+          className="mt-1 block w-full border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md p-2"
           value={currentQuestion}
           onChange={(e) => setCurrentQuestion(e.target.value)}
         />
@@ -68,7 +84,7 @@ const QuestionForm = () => {
       <label className="block mb-4">
         Question Type:
         <select
-          className="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md"
+          className="mt-1 block w-full border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md p-2"
           value={questionType}
           onChange={(e) =>
             setQuestionType(e.target.value as QuestionChoiceType)
@@ -89,9 +105,9 @@ const QuestionForm = () => {
               <div key={index}>
                 <input
                   type="text"
-                  className="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md pl-2"
-                  value={option.text}
                   placeholder="Add your answer..."
+                  className="mt-1 block w-full border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md p-2"
+                  value={option.text}
                   onChange={(e) => addOption(index, e.target.value)}
                 />
                 <BsTrash onClick={() => deleteOption(option.text)} />
