@@ -38,7 +38,6 @@ const ListOfSurveys = () => {
     handleGetAllSurveys();
   }, []);
 
-
   const handleDelete = (id: string) => {
     deleteSurvey({ surveyId: id }).then(() =>
       setSurveys(surveys.filter((survey) => survey._id !== id)),
