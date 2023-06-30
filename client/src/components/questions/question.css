@@ -1,0 +1,7 @@
+.question-div .action-button{
+  display: none;
+}
+
+.question-div:hover .action-button{
+  display: block;
+}

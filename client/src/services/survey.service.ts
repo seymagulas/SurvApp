@@ -32,10 +32,10 @@ export const enum SurveyStatus {
 
 export interface ISurvey {
   _id?: string;
-  userId: string;
+  userId?: string;
   name: string;
   questions: IQuestion[];
-  status: SurveyStatus;
+  status?: SurveyStatus;
 }
 
 export const getAllSurveys = async (): Promise<ISurvey[]> => {
