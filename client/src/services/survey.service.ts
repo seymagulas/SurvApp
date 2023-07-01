@@ -179,6 +179,7 @@ export const shareSurvey = async ({ surveyId, data }: IShareSurveyRequest) => {
         headers: authHeader(),
       },
     );
+    toast.success('Email sent successfuly');
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {

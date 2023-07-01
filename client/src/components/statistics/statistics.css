@@ -1,0 +1,54 @@
+.statContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #36454F;
+}
+
+.statsHeader, .surveyName {
+  font-size: 32px;
+}
+
+.stats {
+  max-width: 500px;
+  width: 100%;
+}
+
+.chartDivider {
+  margin: 32px;
+}
+
+button svg, p svg {
+  display: inline-block;
+}
+
+.statHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 400px;
+}
+
+.statHeader p {
+  display: flex;
+  align-items: center;
+}
+
+.statHeader p svg {
+  margin-right: 8px;
+}
+
+.statHeader button {
+  display: flex;
+  align-items: center;
+  background-color: #36454F;
+}
+
+.statHeader button svg {
+  margin-left: 8px;
+}
+
+.statHeader button:hover {
+  background-color: #000000;
+}
