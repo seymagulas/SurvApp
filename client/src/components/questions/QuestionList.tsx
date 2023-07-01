@@ -12,11 +12,9 @@ const QuestionList: React.FC<IQuestionListProps> = ({
   questions,
   deleteQuestion,
 }) => {
-
   const handleDelete = (text: string) => {
     deleteQuestion(text);
   };
-
 
   return (
     <>

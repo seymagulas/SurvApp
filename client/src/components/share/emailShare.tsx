@@ -6,10 +6,7 @@ const EmailsPage = () => {
   return (
     <>
       <div>
-        <h2>Emails</h2>
-        <div>
-          <Emails />
-        </div>
+        <Emails />
       </div>
     </>
   );
