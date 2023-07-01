@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import QuestionList from '../questions/QuestionList';
 import {
   Link,
@@ -45,7 +45,10 @@ const Survey: React.FC = () => {
         <SurveyForm />
         <QuestionList questions={questions} deleteQuestion={deleteQuestion} />
         <Link to="/survey/questions" state={{ surveyId }}>
-          <button className="px-4 w-full py-2 bg-indigo-500 text-white rounded-md mb-4">
+          <button
+            className="px-4 w-full py-2 bg-indigo-500 text-white rounded-md mb-4"
+            aria-label="Add question"
+          >
             Add Question
           </button>
         </Link>
@@ -54,6 +57,7 @@ const Survey: React.FC = () => {
             <button
               onClick={handleSaveSurvey}
               className="px-4 py-2 bg-indigo-500 text-white rounded-md pl-20 pr-20"
+              aria-label="Save question"
             >
               Save Survey
             </button>

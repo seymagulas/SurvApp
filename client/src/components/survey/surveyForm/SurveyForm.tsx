@@ -5,7 +5,7 @@ import { ISurveyProvider } from '../../../providers/SurveyProvider';
 const SurveyForm: React.FC = () => {
   const { surveyName, setSurveyName } = useOutletContext<ISurveyProvider>();
 
-  const allowPatterns = /^[a-zA-Z0-9-_. ?:!]+$/;
+  const allowPatterns = /^[a-zA-Z0-9-_. ,?:!]+$/;
 
   const handleName = (value: string) => {
     const sanitizeName = !allowPatterns.test(value);
@@ -26,6 +26,7 @@ const SurveyForm: React.FC = () => {
           type="text"
           placeholder="Name your survey..."
           className="mt-1 block w-full border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md p-2"
+          aria-label="Survey name"
           value={surveyName}
           onChange={(e) => handleName(e.target.value)}
         />

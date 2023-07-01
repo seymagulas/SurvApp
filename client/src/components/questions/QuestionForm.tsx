@@ -18,7 +18,7 @@ const QuestionForm = () => {
     QuestionChoiceType.multiChoice,
   );
 
-  const allowPatterns = /^[a-zA-Z0-9-_.? :!]+$/;
+  const allowPatterns = /^[a-zA-Z0-9-_.? :,!]+$/;
 
   const sanitizeCode = (value: string) => {
     const codeSanitized = !allowPatterns.test(value);
@@ -73,6 +73,7 @@ const QuestionForm = () => {
       <label className="block mb-4">
         Question:
         <input
+          aria-label="add question"
           type="text"
           placeholder="Add your question..."
           className="mt-1 block w-full border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md p-2"
@@ -89,6 +90,7 @@ const QuestionForm = () => {
           onChange={(e) =>
             setQuestionType(e.target.value as QuestionChoiceType)
           }
+          aria-label="select type of question"
         >
           <option value={QuestionChoiceType.multiChoice}>
             Multiple choice answers
@@ -97,22 +99,35 @@ const QuestionForm = () => {
         </select>
       </label>
 
-      {questionType === QuestionChoiceType.multiChoice && (
-        <div className="mb-4">
-          Options:
-          <div className="list-disc list-inside">
-            {currentOptions.map((option, index) => (
-              <div key={index}>
-                <input
-                  type="text"
-                  placeholder="Add your answer..."
+      {questionType === QuestionChoiceType.multiChoice &&
+        currentQuestion.length > 1 && (
+          <div className="mb-4">
+            Options:
+            <div className="list-disc list-inside">
+              {currentOptions.map((option, index) => (
+                <div
+                  key={index}
                   className="mt-1 block w-full border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md p-2"
-                  value={option.text}
-                  onChange={(e) => addOption(index, e.target.value)}
-                />
-                <BsTrash onClick={() => deleteOption(option.text)} />
-              </div>
-            ))}
+                >
+                  <div className="flex items-center">
+                    <input
+                      aria-label="add answer option"
+                      type="text"
+                      placeholder="Add your answer..."
+                      value={option.text}
+                      className="w-full"
+                      onChange={(e) => addOption(index, e.target.value)}
+                    />
+                    <div className="flex justify-centre m-2">
+                      <BsTrash
+                        onClick={() => deleteOption(option.text)}
+                        aria-label="delete question"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
             <button
               className="mt-2 px-4 py-2 bg-indigo-500 text-white rounded-md"
               onClick={() => addInput()}
@@ -120,8 +135,7 @@ const QuestionForm = () => {
               Add Option
             </button>
           </div>
-        </div>
-      )}
+        )}
 
       {(questionType === QuestionChoiceType.range ||
         currentOptions.length > 0) && (
