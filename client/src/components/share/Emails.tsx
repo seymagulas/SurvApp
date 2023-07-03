@@ -88,6 +88,7 @@ const Emails: React.FC = () => {
                 <div className="flex justify-end m-2">
                   <BsTrash
                     aria-label="Delete email"
+                    title="Delete"
                     onClick={() => deleteEmail(email)}
                   />
                 </div>

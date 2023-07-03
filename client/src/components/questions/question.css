@@ -5,3 +5,15 @@
 .question-div:hover .action-button{
   display: block;
 }
+
+.completed{
+  background-color: #FFB5C3;
+}
+
+.published{
+  background-color: #CDB6FF;
+}
+
+.new{
+  background-color: #FFE7AF;
+}
