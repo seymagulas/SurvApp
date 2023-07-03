@@ -27,6 +27,7 @@ const QuestionList: React.FC<IQuestionListProps> = ({
                 <RiDeleteBin6Line
                   className="action-button m1-2"
                   aria-label="Delete question"
+                  title="Delete"
                   onClick={() => handleDelete(question.text)}
                 />
               </div>

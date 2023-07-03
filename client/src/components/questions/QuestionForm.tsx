@@ -124,6 +124,7 @@ const QuestionForm = () => {
                         onClick={() => deleteOption(option.text)}
                         aria-label="Delete question"
                         className="action-button m1-2"
+                        title="Delete"
                       />
                     </div>
                   </div>

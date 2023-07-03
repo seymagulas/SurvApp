@@ -72,6 +72,7 @@ const ListOfSurveys = () => {
                         <RiEdit2Fill
                           className="action-button m1-2 ml-1"
                           aria-label="Edit survey"
+                          title="Edit"
                           onClick={() => {
                             navigate(`/survey/${survey._id}/edit`);
                           }}
@@ -80,12 +81,14 @@ const ListOfSurveys = () => {
                       <RiDeleteBin6Line
                         className="action-button m1-2 ml-1"
                         aria-label="Delete survey"
+                        title="Delete"
                         onClick={() => handleDelete(survey._id ?? '')}
                       />
                       {survey.status === SurveyStatus.published && (
                         <RiShareLine
                           className="action-button m1-2 ml-1"
                           aria-label="Share survey"
+                          title="Share"
                           onClick={() => {
                             navigate(`/survey/${survey._id}/send-by-email`);
                           }}
@@ -94,6 +97,7 @@ const ListOfSurveys = () => {
                       {survey.status === SurveyStatus.new && (
                         <RiFolderLockLine
                           aria-label="Publish survey"
+                          title="Publish"
                           className="action-button m1-2 ml-1"
                           onClick={() => handlePublish(survey._id ?? '')}
                         />
@@ -102,6 +106,7 @@ const ListOfSurveys = () => {
                         <RiLockLine
                           className="action-button m1-2 ml-1"
                           aria-label="Complete survey"
+                          title="Complete"
                           onClick={() => handleComplete(survey._id ?? '')}
                         />
                       )}
@@ -109,6 +114,7 @@ const ListOfSurveys = () => {
                         <BsGraphUpArrow
                           className="action-button m1-2 ml-1"
                           aria-label="Survey statistics"
+                          title="Statistics"
                           onClick={() => {
                             navigate(`/survey/${survey._id}/stats`);
                           }}
