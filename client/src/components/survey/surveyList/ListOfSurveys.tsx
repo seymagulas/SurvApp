@@ -63,7 +63,10 @@ const ListOfSurveys = () => {
           </div>
           <div>
             {surveys.map((survey) => (
-              <div key={survey._id} className="question-div flex mb-2">
+              <div
+                key={survey._id}
+                className={`question-div flex mb-2 ${survey.status}`}
+              >
                 <div className="border border-gray-300 rounded-md p-2 flex-grow">
                   <div className="flex items-center justify-between">
                     <p className="flex-grow-1">{survey.name}</p>

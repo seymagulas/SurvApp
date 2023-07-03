@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IQuestion } from '../../services/survey.service';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import './question.css';
