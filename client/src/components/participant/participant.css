@@ -1,17 +1,152 @@
-.participant-component {
-  width: 100%;
-  height: 100%;
+.main {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-.image-div, .text-div {
- width: 100%;
+.image-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.image-div img {
+  margin-top: 10px;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 30%;
+}
+
+.text-div {
+  text-align: center;
+}
+
+.Header {
+  margin-bottom: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bold;
+  font-size: xx-large;
+}
+
+.slogan {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-bottom: 15px;
+  font-size: larger;
+}
+
+.participant-question {
+  margin-top: 10%;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  font-size: xx-large;
+  padding: 20px;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.answer {
+  margin-bottom: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .start-button {
-  border: 1px solid black;
-  border-radius: 8px;
-  padding: 8px 16px;
-  margin-top: 16px;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #efba16;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bolder;
+  font-size: larger;
+}
+
+.answer-options {
+  display: inline;
+  margin: 5px;
+  font-size: larger;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.answer-options input[type='radio'] {
+  margin-right: 10px;
+  list-style: none;
+}
+
+.answer-options label {
+  display: inline-block;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.buttons {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #efba16;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.answer-inline {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.answer-options input[type='radio'] {
+  margin-right: 5px;
+}
+
+.answer-options label {
+  margin-right: 10px;
+}
+
+.hover-effect:hover {
+  background-color: whitesmoke;
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+}
+
+div[class^='answer-options'].hover-effect {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.thank-you-note {
+  font-weight: bolder;
+  color: rgb(80, 79, 79);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  align-items: center;
+  font-size: xx-large;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .image-div img {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .participant-question {
+    max-width: 300px;
+  }
+
+  .answer-options {
+    font-size: medium;
+  }
 }

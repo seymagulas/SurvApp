@@ -7,17 +7,17 @@ const Participant: React.FC = () => {
   const hash = searchParams.get('hash');
 
   return (
-    <div className="participant-component max-w-md mx-auto">
+    <div className="participant-component">
       <div className="image-div">
         <img
-          src="/assests/images/SurveyApp2.png"
+          src="assests/images/6179a89d5e443dd17b13944e_engagment-participation.jpeg"
           alt="laptop image for landing page"
         />
       </div>
       <div className="text-div">
-        <p>Welcome to SurvApp</p>
-        <p>Share Your Voice</p>
-        <p>Make a Difference!</p>
+        <p className="Header">Welcome to SurvApp</p>
+        <p className="slogan">Share your voice, make a difference!</p>
+        {/* <p>Make a Difference!</p> */}
         <Link
           className="start-button"
           to="/participant/questions"
