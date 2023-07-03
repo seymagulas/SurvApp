@@ -21,6 +21,9 @@ body {
 .black_button {
   @apply rounded-full border border-white bg-black py-3.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm flex items-center justify-center;
 }
+.medium_button {
+  @apply w-[250px];
+}
 .dropdown {
   @apply absolute right-0 top-full mt-3 w-full bg-slate-50 p-5 rounded-lg min-w-[210px] flex flex-col gap-2 justify-end items-end;
 }

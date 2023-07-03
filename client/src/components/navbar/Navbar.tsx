@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-white shadow-lg mb-7 w-full p-2">
+    <nav className="bg-white shadow-lg mb-10 w-full p-2">
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
