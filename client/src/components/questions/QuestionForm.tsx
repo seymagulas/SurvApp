@@ -8,6 +8,8 @@ import { useOutletContext, useNavigate } from 'react-router-dom';
 import { ISurveyProvider } from '../../providers/SurveyProvider';
 import { BsTrash } from 'react-icons/bs';
 import './question.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const QuestionForm = () => {
   const navigate = useNavigate();
@@ -19,12 +21,12 @@ const QuestionForm = () => {
     QuestionChoiceType.multiChoice,
   );
 
-  const allowPatterns = /^[a-zA-Z0-9-_.? :,!]+$/;
+  const allowPatterns = /^$|^[a-zA-Z0-9-_.?: ,!]*$/;
 
   const sanitizeCode = (value: string) => {
     const codeSanitized = !allowPatterns.test(value);
     if (codeSanitized) {
-      alert(
+      toast.error(
         'The survey name should just include numeric and alphabet characters',
       );
       return false;

@@ -1,19 +1,21 @@
 import React from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { ISurveyProvider } from '../../../providers/SurveyProvider';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SurveyForm: React.FC = () => {
   const { surveyName, setSurveyName } = useOutletContext<ISurveyProvider>();
 
-  const allowPatterns = /^[a-zA-Z0-9-_. ,?:!]+$/;
+  const allowPatterns = /^$|^[a-zA-Z0-9-_.?: ,!]*$/;
 
   const handleName = (value: string) => {
     const sanitizeName = !allowPatterns.test(value);
     if (!sanitizeName) {
       setSurveyName(value);
     } else {
-      alert(
-        'The survey name should just include numeric and alphabet characters',
+      toast.error(
+        `The survey name should just include numeric and alphabet characters`,
       );
     }
   };
