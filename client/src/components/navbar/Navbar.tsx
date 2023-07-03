@@ -4,11 +4,9 @@ import React from 'react';
 import { useState } from 'react';
 import { logout } from '../../services/auth.service';
 import { Link, useNavigate } from 'react-router-dom';
-import { GiHamburgerMenu } from 'react-icons/gi';
 
 const Navbar: React.FC = () => {
-  const [toggleDropdown, setToggleDropDown] = useState(false);
-
+  const [isMenuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -16,73 +14,84 @@ const Navbar: React.FC = () => {
     navigate('/');
   };
 
-  return (
-    <nav className=" w-full flex  justify-between mb-7 pt-3 ">
-      <div>
-        <Link className="flex gap-2 flex-center" to="/main">
-          <img
-            src="/assests/images/logo.png"
-            alt="survapp logo"
-            width={50}
-            height={40}
-            className="ml-10 object-contain"
-          />
-          <p
-            className={`marker:max-sm:hidden text-3xl mt-2 text-black tracking-wide self-center `}
-          >
-            SurVapp
-          </p>
-        </Link>
-      </div>
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
 
-      {/* Desktop navigation */}
-      <div className="sm:flex hidden">
-        <div className="flex gap-3 md:gap-5">
-          <button type="button" className="white_button" onClick={handleLogout}>
-            Log Out
-          </button>
-          <Link to="/profile">
-            <img
-              src="/assests/images/avatar.jpeg"
-              width={47}
-              height={47}
-              className="rounded-full mr-5"
-              alt="user-pic"
-            />
-          </Link>
-        </div>
-      </div>
-      {/* Mobile Navigation */}
-      <div className="sm:hidden flex relative">
-        <div className="flex">
-          <button
-            className="mt-2 px-4 py-2 bg-white text-black rounded-md"
-            onClick={() => setToggleDropDown((prev) => !prev)}
-          >
-            <GiHamburgerMenu />
-          </button>
-          {toggleDropdown && (
-            <div className="dropdown">
-              <Link
-                to="/profile"
-                className=" text-sm font-inter text-gray-700 hover:text-gray-500 font-medium"
-                onClick={() => setToggleDropDown(false)}
+  return (
+    <nav className="bg-white shadow-lg mb-7 w-full p-2">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex-shrink-0 flex items-center">
+            <Link className="flex gap-2 flex-center items-center" to="/main">
+              <img
+                className="h-10 w-10"
+                src="/assests/images/logo.png"
+                alt="Logo"
+              />
+              <p
+                className={`marker:max-sm:hidden text-3xl text-black tracking-wide self-center `}
               >
-                My Profile
-              </Link>
-              <Link to="/">
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="black_button"
-                >
-                  Log Out
-                </button>
-              </Link>
-            </div>
-          )}
+                SurVapp
+              </p>
+            </Link>
+          </div>
+          <div className="hidden sm:ml-6 sm:flex sm:items-center">
+            <Link to="/profile">
+              <img
+                src="/assests/images/avatar.jpeg"
+                width={47}
+                height={47}
+                className="rounded-full mr-5"
+                alt="user-pic"
+              />
+            </Link>
+            <button className="white_button" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+          <div className="sm:hidden flex items-center -mr-2">
+            <button
+              onClick={toggleMenu}
+              className="inline-flex items-center justify-center p-2 rounded-md text-black hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
+            >
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
+      {isMenuOpen && (
+        <div className="sm:hidden">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            <Link
+              className="block px-3 py-2 rounded-md text-left font-medium text-black hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
+              to="/profile"
+            >
+              Profile
+            </Link>
+
+            <button
+              onClick={handleLogout}
+              className="w-full block px-3 py-2 rounded-md text-left font-medium text-black hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

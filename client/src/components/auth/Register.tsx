@@ -71,17 +71,16 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="flex ml-20 mt-20 mr-20">
-      <div className="">
+    <div className="flex flex-col item-center justify-center md:flex-row md:ml-20 mt-20 md:mr-20">
+      <div className="hidden md:flex item-center justify-center md:w-1/2">
         <img
           src="/assests/images/survapp.gif"
-          alt="GIF"
-          width={450}
-          height={250}
+          alt="flying messages"
+          className="w-full max-w-sm m-auto h-auto"
         />
       </div>
-      <div className="rml-20 w-5/6 elative flex flex-col items-center  min-h-screen overflow-hidden">
-        <div className="w-5/6 p-6 bg-white rounded-md shadow-md lg:max-w-lg">
+      <div className="w-full md:w-1/2 flex flex-col items-center">
+        <div className="w-5/6 max-w-md p-6 bg-white rounded-md shadow-md lg:max-w-lg">
           <h1 className="text-3xl font-bold text-center text-gray-700">
             Register
           </h1>

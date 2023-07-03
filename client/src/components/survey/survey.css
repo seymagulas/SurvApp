@@ -1,0 +1,65 @@
+.survey-div {
+  width: 350px;
+  padding: 16px 32px;
+  border-radius: 8px;
+}
+
+.survey-div p {
+  width: 350px;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.action-button {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.survey-div > div {
+  position: relative;
+}
+
+.survey-div:hover p {
+  width: 200px;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.action-button-group {
+  position: absolute;
+  right: 0;
+}
+
+.filter-buttons {
+  width: 350px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.filter-button {
+  padding: 4px 16px;
+  border-radius: 16px;
+}
+
+.filter-completed{
+  background-color: #FFB5C3;
+}
+
+.filter-published{
+  background-color: #CDB6FF;
+}
+
+.filter-new{
+  background-color: #FFE7AF;
+}
+
+.filter-button.deactive {
+  background-color: gray;
+  color: white;
+}

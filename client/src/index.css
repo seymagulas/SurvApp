@@ -16,10 +16,10 @@ body {
 }
 
 .white_button {
-  @apply rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm flex items-center justify-center;
+  @apply rounded-full border border-black bg-transparent py-2.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm flex items-center justify-center;
 }
 .black_button {
-  @apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm flex items-center justify-center;
+  @apply rounded-full border border-white bg-black py-3.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm flex items-center justify-center;
 }
 .dropdown {
   @apply absolute right-0 top-full mt-3 w-full bg-slate-50 p-5 rounded-lg min-w-[210px] flex flex-col gap-2 justify-end items-end;
