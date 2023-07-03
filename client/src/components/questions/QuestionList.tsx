@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IQuestion } from '../../services/survey.service';
-import { RiDeleteBin6Line, RiEdit2Fill } from 'react-icons/ri';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 import './question.css';
 
 interface IQuestionListProps {

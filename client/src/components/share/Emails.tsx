@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { BsTrash } from 'react-icons/bs';
 import { useParams, useNavigate } from 'react-router-dom';
 import { shareSurvey } from '../../services/survey.service';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Emails: React.FC = () => {
   const params = useParams();
@@ -40,7 +42,7 @@ const Emails: React.FC = () => {
     );
 
     if (!sanitizedEmails || !checkAllEmails) {
-      alert(`Not all emails can be sent ${sanitizedEmails}`);
+      toast.error(`Not all emails can be sent ${sanitizedEmails}`);
     } else {
       const data = {
         emails: sanitizedEmails,
@@ -88,6 +90,7 @@ const Emails: React.FC = () => {
                 <div className="flex justify-end m-2">
                   <BsTrash
                     aria-label="Delete email"
+                    title="Delete"
                     onClick={() => deleteEmail(email)}
                   />
                 </div>
