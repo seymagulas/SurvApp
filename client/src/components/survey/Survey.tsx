@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import { ISurveyProvider } from '../../providers/SurveyProvider';
 import SurveyForm from './surveyForm/SurveyForm';
-import { createSurvey } from '../../services/survey.service';
+import { createSurvey, updateSurvey } from '../../services/survey.service';
 
 const Survey: React.FC = () => {
   const params = useParams();
@@ -30,10 +30,20 @@ const Survey: React.FC = () => {
       name: surveyName,
       questions: questions,
     };
-
-    const response = await createSurvey({ data });
-    if (response) {
-      navigate('/main');
+    if (surveyId) {
+      console.log(surveyId);
+      const response = await updateSurvey({
+        data,
+        surveyId,
+      });
+      if (response) {
+        navigate('/main');
+      }
+    } else {
+      const response = await createSurvey({ data });
+      if (response) {
+        navigate('/main');
+      }
     }
   };
 
