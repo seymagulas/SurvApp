@@ -12,10 +12,6 @@ const QuestionList: React.FC<IQuestionListProps> = ({
   questions,
   deleteQuestion,
 }) => {
-  const handleOpenEdit = (question: IQuestion) => {
-    // openEditQuestion(question);
-  };
-
   const handleDelete = (text: string) => {
     deleteQuestion(text);
   };
@@ -28,12 +24,10 @@ const QuestionList: React.FC<IQuestionListProps> = ({
             <div className="flex items-center justify-between">
               <p className="flex-grow-1">{question.text}</p>
               <div className="flex justify-between">
-                <RiEdit2Fill
-                  className="action-button m1-2"
-                  onClick={() => handleOpenEdit(question)}
-                />
                 <RiDeleteBin6Line
                   className="action-button m1-2"
+                  aria-label="Delete question"
+                  title="Delete"
                   onClick={() => handleDelete(question.text)}
                 />
               </div>

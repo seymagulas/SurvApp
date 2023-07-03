@@ -7,6 +7,7 @@ import {
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import { ISurveyProvider } from '../../providers/SurveyProvider';
 import { BsTrash } from 'react-icons/bs';
+import './question.css';
 
 const QuestionForm = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const QuestionForm = () => {
     QuestionChoiceType.multiChoice,
   );
 
-  const allowPatterns = /^[a-zA-Z0-9-_.? :!]+$/;
+  const allowPatterns = /^[a-zA-Z0-9-_.? :,!]+$/;
 
   const sanitizeCode = (value: string) => {
     const codeSanitized = !allowPatterns.test(value);
@@ -68,11 +69,12 @@ const QuestionForm = () => {
 
   return (
     <div className="max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Add Questions to Survey</h2>
+      <h2 className="text-2xl font-bold mb-4">Add question</h2>
 
       <label className="block mb-4">
         Question:
         <input
+          aria-label="add question"
           type="text"
           placeholder="Add your question..."
           className="mt-1 block w-full border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md p-2"
@@ -89,6 +91,7 @@ const QuestionForm = () => {
           onChange={(e) =>
             setQuestionType(e.target.value as QuestionChoiceType)
           }
+          aria-label="select type of question"
         >
           <option value={QuestionChoiceType.multiChoice}>
             Multiple choice answers
@@ -97,39 +100,55 @@ const QuestionForm = () => {
         </select>
       </label>
 
-      {questionType === QuestionChoiceType.multiChoice && (
-        <div className="mb-4">
-          Options:
-          <div className="list-disc list-inside">
-            {currentOptions.map((option, index) => (
-              <div key={index}>
-                <input
-                  type="text"
-                  placeholder="Add your answer..."
+      {questionType === QuestionChoiceType.multiChoice &&
+        currentQuestion.length > 1 && (
+          <div className="mb-4">
+            Options:
+            <div className="list-disc list-inside">
+              {currentOptions.map((option, index) => (
+                <div
+                  key={index}
                   className="mt-1 block w-full border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md p-2"
-                  value={option.text}
-                  onChange={(e) => addOption(index, e.target.value)}
-                />
-                <BsTrash onClick={() => deleteOption(option.text)} />
-              </div>
-            ))}
+                >
+                  <div className="flex items-center justify-between">
+                    <input
+                      aria-label="add answer option"
+                      type="text"
+                      placeholder="Add your answer..."
+                      value={option.text}
+                      className="w-full"
+                      onChange={(e) => addOption(index, e.target.value)}
+                    />
+                    <div className="flex justify-between">
+                      <BsTrash
+                        onClick={() => deleteOption(option.text)}
+                        aria-label="Delete question"
+                        className="action-button m1-2"
+                        title="Delete"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
             <button
               className="mt-2 px-4 py-2 bg-indigo-500 text-white rounded-md"
               onClick={() => addInput()}
+              aria-label="Add option"
             >
               Add Option
             </button>
           </div>
-        </div>
-      )}
+        )}
 
       {(questionType === QuestionChoiceType.range ||
         currentOptions.length > 0) && (
         <button
           className="px-4 py-2 bg-indigo-500 text-white rounded-md"
           onClick={addQuestion}
+          aria-label="Save question"
         >
-          Add Question
+          Save Question
         </button>
       )}
     </div>
