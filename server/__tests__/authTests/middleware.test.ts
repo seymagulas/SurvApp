@@ -4,26 +4,24 @@ import { UserModel } from '../../models/userModel';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import { disconnectDBForTesting, connectDBforTesting, createServer } from './../utilis';
+import { disconnectDBForTesting, connectDBforTesting } from './../utilis';
 import dotenv from 'dotenv';
+import { app } from '../..';
+beforeAll(mongoose.disconnect); // Golden line !!
 
-dotenv.config();
-
-const app = createServer();
-beforeAll(async (): Promise<void> => {
-  await mongoose.disconnect();
+beforeAll(async () => {
+  const testDBUrl = 'mongodb://127.0.0.1:27017/testingBE';
+  await mongoose.connect(testDBUrl);
+});
+afterAll(async () => {
+  if (mongoose.connection.readyState !== 0) {
+    await UserModel.deleteMany({});
+    // await Blog.deleteMany({});
+    await mongoose.connection.close();
+  }
 });
 
 describe('check middleware functionality', (): void => {
-  beforeAll(async () => {
-    await connectDBforTesting();
-  });
-  afterAll(async () => {
-    await UserModel.deleteMany();
-    await disconnectDBForTesting();
-    await mongoose.disconnect();
-  });
-
   test('should return 403 if no authorization header is provided', async (): Promise<void> => {
     const response = await supertest(app).get('/user');
     expect(response.status).toBe(403);
@@ -43,7 +41,7 @@ describe('check middleware functionality', (): void => {
       password,
       confirmPassword: password,
     });
-    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY || 'secret_key');
+    const token = jwt.sign({ id: user._id }, 'secret_key');
 
     const response = await supertest(app).get('/user').set('Authorization', `Bearer ${token}`);
 

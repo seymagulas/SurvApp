@@ -1,26 +1,27 @@
 import mongoose, { ConnectOptions } from 'mongoose';
 import supertest from 'supertest';
 import dotenv from 'dotenv';
-
+import bcrypt from 'bcrypt';
 import { UserModel } from '../../models/userModel';
-import { disconnectDBForTesting, connectDBforTesting, createServer } from './../utilis';
+import { disconnectDBForTesting, connectDBforTesting, createServer } from '../utilis';
+import { DecodedJwtPayload } from '../interfaces';
 dotenv.config();
-const app = createServer();
+import { app } from '../..';
+import jwt from 'jsonwebtoken';
+beforeAll(mongoose.disconnect); // Golden line !!
 
 beforeAll(async () => {
-  await mongoose.disconnect();
+  const testDBUrl = 'mongodb://127.0.0.1:27017/testingBE';
+  await mongoose.connect(testDBUrl);
 });
-
-describe('check register functionality', () => {
-  beforeAll(async () => {
-    await connectDBforTesting();
-    await UserModel.deleteMany();
-  });
-  afterAll(async () => {
-    await UserModel.deleteMany();
-    await disconnectDBForTesting();
-    await mongoose.disconnect();
-  });
+afterAll(async () => {
+  if (mongoose.connection.readyState !== 0) {
+    await UserModel.deleteMany({});
+    // await Blog.deleteMany({});
+    await mongoose.connection.close();
+  }
+});
+describe('check register & login functionality', () => {
   test('should register a new user', async () => {
     const data = {
       name: 'Mark',
@@ -40,16 +41,9 @@ describe('check register functionality', () => {
   });
 
   it('should return an error when the email address already exists', async () => {
-    const existingUser = new UserModel({
-      name: 'Marko',
-      email: 'marko@mail.com',
-      password: 'Blog2',
-    });
-    await existingUser.save();
-
     const response = await supertest(app).post('/register').send({
       name: 'John Doe',
-      email: 'marko@mail.com',
+      email: 'mark@mail.com',
       password: 'password123',
       confirmPassword: 'password123',
     });
@@ -104,5 +98,39 @@ describe('check register functionality', () => {
     } finally {
       createMock.mockRestore();
     }
+  });
+
+  test('login with proper credentials & return an access token', async () => {
+    const data = {
+      name: 'Rob',
+      email: 'rob@mail.com',
+      password: 'Blog1',
+      confirmPassword: 'Blog1',
+    };
+
+    await supertest(app)
+      .post('/register')
+      .send(data)
+
+      .then(async (response) => {
+        expect(response.status).toBe(201);
+        expect(response.body).toEqual({});
+      });
+
+    const userData = {
+      email: 'rob@mail.com',
+      password: 'Blog1',
+    };
+
+    const response = await supertest(app)
+      .post('/login')
+      .send(userData)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .expect((res) => {
+        expect(res.body).toHaveProperty('accessToken');
+      });
+    const decoded = jwt.verify(response.body.accessToken, 'secret_key');
+    expect((decoded as DecodedJwtPayload).id).toBeTruthy();
   });
 });
