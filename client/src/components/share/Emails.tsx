@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { BsTrash } from 'react-icons/bs';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { shareSurvey } from '../../services/survey.service';
 
 const Emails: React.FC = () => {
@@ -11,6 +11,8 @@ const Emails: React.FC = () => {
 
   const allowPattern = /^[a-zA-Z0-9-_.@]+$/;
   const [inputEmails, setInputEmails] = useState<string[]>([]);
+
+  const navigate = useNavigate();
 
   const addInput = () => {
     setInputEmails([...inputEmails, '']);
@@ -33,40 +35,77 @@ const Emails: React.FC = () => {
     const sanitizedEmails = inputEmails.filter((email) =>
       allowPattern.test(email),
     );
-    const data = {
-      emails: sanitizedEmails,
-    };
-    if (surveyId) {
-      await shareSurvey({ surveyId, data });
+    const checkAllEmails = sanitizedEmails.every((email) =>
+      email.includes('@'),
+    );
+
+    if (!sanitizedEmails || !checkAllEmails) {
+      alert(`Not all emails can be sent ${sanitizedEmails}`);
+    } else {
+      const data = {
+        emails: sanitizedEmails,
+      };
+      if (surveyId) {
+        await shareSurvey({ surveyId, data });
+      }
+      navigate('/main');
     }
   };
 
   return (
-    <div>
-      <div className="addNewEmail">
-        <input
-          type="button"
-          id="addEmail"
-          value="Add Email"
-          name="addEmail"
-          onClick={addInput}
-        />
+    <>
+      <div className="max-w-md mx-auto">
+        <h2 className="text-2xl font-bold mb-4">Share your survey:</h2>
+        <label className="block mb-4">
+          <input
+            type="button"
+            aria-label="add new email"
+            className="px-4 py-2 bg-indigo-500 text-white rounded-md"
+            id="addEmail"
+            value=" + Add Email"
+            name="addEmail"
+            onClick={addInput}
+          />
+        </label>
       </div>
-      <div className="email-list">
-        {inputEmails.map((email, index) => (
-          <div key={index}>
+
+      <div className="max-w-md mx-auto">
+        <label className="list-disc list-inside">
+          {inputEmails.map((email, index) => (
+            <div
+              key={index}
+              className="mt-1 block w-full border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md p-2"
+            >
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  aria-label="Email to be sent to"
+                  value={email}
+                  className="w-full"
+                  onChange={(event) => addEmail(index, event.target.value)}
+                  placeholder="Email to send..."
+                />
+                <div className="flex justify-end m-2">
+                  <BsTrash
+                    aria-label="Delete email"
+                    onClick={() => deleteEmail(email)}
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+          {inputEmails.length > 0 && (
             <input
-              type="text"
-              value={email}
-              onChange={(event) => addEmail(index, event.target.value)}
-              placeholder="Email to send..."
+              aria-label="Send"
+              className="mt-2 px-4 py-2 bg-indigo-500 text-white rounded-md"
+              type="submit"
+              value="Send"
+              onClick={sendEmails}
             />
-            <BsTrash onClick={() => deleteEmail(email)} />
-          </div>
-        ))}
-        <input type="submit" value="Send" onClick={sendEmails} />
+          )}
+        </label>
       </div>
-    </div>
+    </>
   );
 };
 
