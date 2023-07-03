@@ -7,6 +7,7 @@ import {
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import { ISurveyProvider } from '../../providers/SurveyProvider';
 import { BsTrash } from 'react-icons/bs';
+import './question.css';
 
 const QuestionForm = () => {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ const QuestionForm = () => {
 
   return (
     <div className="max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Add Questions to Survey</h2>
+      <h2 className="text-2xl font-bold mb-4">Add question</h2>
 
       <label className="block mb-4">
         Question:
@@ -109,7 +110,7 @@ const QuestionForm = () => {
                   key={index}
                   className="mt-1 block w-full border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md p-2"
                 >
-                  <div className="flex items-center">
+                  <div className="flex items-center justify-between">
                     <input
                       aria-label="add answer option"
                       type="text"
@@ -118,10 +119,11 @@ const QuestionForm = () => {
                       className="w-full"
                       onChange={(e) => addOption(index, e.target.value)}
                     />
-                    <div className="flex justify-centre m-2">
+                    <div className="flex justify-between">
                       <BsTrash
                         onClick={() => deleteOption(option.text)}
-                        aria-label="delete question"
+                        aria-label="Delete question"
+                        className="action-button m1-2"
                       />
                     </div>
                   </div>
@@ -131,6 +133,7 @@ const QuestionForm = () => {
             <button
               className="mt-2 px-4 py-2 bg-indigo-500 text-white rounded-md"
               onClick={() => addInput()}
+              aria-label="Add option"
             >
               Add Option
             </button>
@@ -142,8 +145,9 @@ const QuestionForm = () => {
         <button
           className="px-4 py-2 bg-indigo-500 text-white rounded-md"
           onClick={addQuestion}
+          aria-label="Save question"
         >
-          Add Question
+          Save Question
         </button>
       )}
     </div>
