@@ -4,6 +4,7 @@ import React from 'react';
 import { useState } from 'react';
 import { logout } from '../../services/auth.service';
 import { Link, useNavigate } from 'react-router-dom';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 const Navbar: React.FC = () => {
   const [toggleDropdown, setToggleDropDown] = useState(false);
@@ -17,19 +18,21 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className=" w-full flex  justify-between mb-7 pt-3 ">
-      <div className="flex gap-2 flex-center">
-        <img
-          src="https://pastlenomad.github.io/Pictures/Screenshot_2023-06-25_at_21.14.40-removebg-preview%20(1).png"
-          alt="surapp logo"
-          width={50}
-          height={40}
-          className="ml-10 object-contain"
-        />
-        <p
-          className={`marker:max-sm:hidden ml-10 text-3xl mt-2 text-black tracking-wide self-center `}
-        >
-          SurVapp
-        </p>
+      <div>
+        <Link className="flex gap-2 flex-center" to="/main">
+          <img
+            src="/assests/images/logo.png"
+            alt="survapp logo"
+            width={50}
+            height={40}
+            className="ml-10 object-contain"
+          />
+          <p
+            className={`marker:max-sm:hidden text-3xl mt-2 text-black tracking-wide self-center `}
+          >
+            SurVapp
+          </p>
+        </Link>
       </div>
 
       {/* Desktop navigation */}
@@ -52,14 +55,12 @@ const Navbar: React.FC = () => {
       {/* Mobile Navigation */}
       <div className="sm:hidden flex relative">
         <div className="flex">
-          <img
-            src="/assests/images/avatar.jpeg"
-            width={37}
-            height={37}
-            className="rounded-full mr-5"
-            alt="user-pic"
+          <button
+            className="mt-2 px-4 py-2 bg-white text-black rounded-md"
             onClick={() => setToggleDropDown((prev) => !prev)}
-          />
+          >
+            <GiHamburgerMenu />
+          </button>
           {toggleDropdown && (
             <div className="dropdown">
               <Link

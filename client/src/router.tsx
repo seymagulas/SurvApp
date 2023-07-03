@@ -33,9 +33,9 @@ const AppRouter: React.FC = () => {
             <Route path="/survey/new" element={<Survey />} />
             <Route path="/survey/:id/edit" element={<Survey />} />
             <Route path="/survey/questions" element={<QuestionForm />} />
+            <Route path="/survey/:id/stats" element={<Statistics />} />
           </Route>
           <Route path="/survey/:id/send-by-email" element={<EmailsPage />} />
-          <Route path="/survey/:id/stats" element={<Statistics />} />
         </Route>
         <Route path="/participant" element={<Participant />} />
         <Route

@@ -59,24 +59,27 @@ export interface ISurvey {
   status: SurveyStatus;
 }
 
-export const SurveySchema = new mongoose.Schema<ISurvey>({
-  userId: {
-    type: String,
-    required: true,
+export const SurveySchema = new mongoose.Schema<ISurvey>(
+  {
+    userId: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    questions: {
+      type: [QuestionSchema],
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      default: SurveyStatus.new,
+    },
   },
-  name: {
-    type: String,
-    required: true,
-  },
-  questions: {
-    type: [QuestionSchema],
-    required: true,
-  },
-  status: {
-    type: String,
-    required: true,
-    default: SurveyStatus.new,
-  },
-});
+  { timestamps: true }
+);
 
 export const SurveyModel = mongoose.model<ISurvey>("Survey", SurveySchema);
