@@ -35,5 +35,9 @@ describe('Create Survey', () => {
     cy.get('button[aria-label="Save question"]').click();
     cy.url().should('include', '/survey/new');
     cy.get('button[aria-label="Save question"]').click();
+    cy.url().should('include', '/main');
+    cy.get('[aria-label="Publish survey"]').click({ force: true });
+    cy.get('[aria-label="Share survey"]').click({ force: true });
+    cy.url().should('include', '/send-by-email');
   });
 });
