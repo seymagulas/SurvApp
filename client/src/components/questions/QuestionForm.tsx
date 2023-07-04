@@ -21,7 +21,7 @@ const QuestionForm = () => {
     QuestionChoiceType.multiChoice,
   );
 
-  const allowPatterns = /^$|^[a-zA-Z0-9-_.?: ,!]*$/;
+  const allowPatterns = /^$|^[a-zA-Z0-9-_.?: ',!]*$/;
 
   const sanitizeCode = (value: string) => {
     const codeSanitized = !allowPatterns.test(value);
