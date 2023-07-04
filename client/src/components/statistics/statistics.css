@@ -27,7 +27,7 @@ button svg, p svg {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 400px;
+  width: 500px;
 }
 
 .statHeader p {
