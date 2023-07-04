@@ -48,15 +48,15 @@
 }
 
 .filter-completed{
-  background-color: #FFB5C3;
+  background-color: #C6D62D;
 }
 
 .filter-published{
-  background-color: #CDB6FF;
+  background-color: #D0DBCB;
 }
 
 .filter-new{
-  background-color: #FFE7AF;
+  background-color: #EEF3DE;
 }
 
 .filter-button.deactive {
