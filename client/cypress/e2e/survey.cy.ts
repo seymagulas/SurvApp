@@ -11,5 +11,12 @@ describe('Create Survey', () => {
     cy.url().should('include', '/survey/new');
     cy.get('h2').should('contain', 'Survey Name:');
     cy.get('input[aria-label="Survey name"]').type('Christopher Nolan');
+    cy.get('button[aria-label="Add question"]').click();
+    cy.url().should('include', '/survey/questions');
+    cy.get('h2').should('contain', 'Add question');
+    cy.get('input[aria-label="add question"]').type('Favourite Movie');
+    cy.get('select[aria-label="select type of question"]').select(
+      'Multiple choice answers',
+    );
   });
 });
