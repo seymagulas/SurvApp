@@ -31,7 +31,6 @@ const Survey: React.FC = () => {
       questions: questions,
     };
     if (surveyId) {
-      console.log(surveyId);
       const response = await updateSurvey({
         data,
         surveyId,
