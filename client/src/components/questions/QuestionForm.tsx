@@ -133,25 +133,29 @@ const QuestionForm = () => {
                 </div>
               ))}
             </div>
-            <button
-              className="mt-2 px-4 py-2 bg-indigo-500 text-white rounded-md"
-              onClick={() => addInput()}
-              aria-label="Add option"
-            >
-              Add Option
-            </button>
+            <div className="text-center">
+              <button
+                className="mt-2 px-4 py-2 bg-indigo-500 text-white rounded-md medium_button"
+                onClick={() => addInput()}
+                aria-label="Add option"
+              >
+                Add Option
+              </button>
+            </div>
           </div>
         )}
 
       {(questionType === QuestionChoiceType.range ||
         currentOptions.length > 0) && (
-        <button
-          className="px-4 py-2 bg-indigo-500 text-white rounded-md"
-          onClick={addQuestion}
-          aria-label="Save question"
-        >
-          Save Question
-        </button>
+        <div className="text-center">
+          <button
+            className="px-4 py-2 bg-indigo-500 text-white rounded-md medium_button"
+            onClick={addQuestion}
+            aria-label="Save question"
+          >
+            Save Question
+          </button>
+        </div>
       )}
     </div>
   );

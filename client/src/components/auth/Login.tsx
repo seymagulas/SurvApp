@@ -1,4 +1,3 @@
-'use client';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
@@ -53,20 +52,17 @@ const Login: React.FC = () => {
 
   return (
     <>
-      <h1 className={`text-6xl flex justify-center mt-10`}>
-        Welcome to SurvApp!
-      </h1>
-      <div className="flex justify-center  ml-44 items-center mt-10">
-        <div className="mr-20">
+      <h1 className="text-6xl text-center mt-10">Welcome to SurvApp!</h1>
+      <div className="flex flex-col md:flex-row md:ml-20 mt-20 md:mr-20">
+        <div className="hidden md:block md:w-1/2">
           <img
             src="/assests/images/survapp.gif"
             alt="flying messages"
-            width={450}
-            height={450}
+            className="w-full max-w-sm m-auto h-auto"
           />
         </div>
-        <div className="  w-5/6 relative flex flex-col max-h-screen overflow-hidden">
-          <div className="p-6 mt-4 bg-white rounded-md shadow-md lg:max-w-lg">
+        <div className="w-full md:w-1/2 flex flex-col items-center">
+          <div className="w-5/6 max-w-md p-6 bg-white rounded-md shadow-md lg:max-w-lg">
             <h1 className="text-3xl font-bold text-center text-gray-700">
               Login
             </h1>

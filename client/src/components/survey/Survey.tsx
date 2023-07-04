@@ -54,19 +54,21 @@ const Survey: React.FC = () => {
       <div className="max-w-md mx-auto">
         <SurveyForm />
         <QuestionList questions={questions} deleteQuestion={deleteQuestion} />
-        <Link to="/survey/questions" state={{ surveyId }}>
-          <button
-            className="px-4 w-full py-2 bg-indigo-500 text-white rounded-md mb-4"
-            aria-label="Add question"
-          >
-            Add Question
-          </button>
-        </Link>
+        <div className="text-center">
+          <Link to="/survey/questions" state={{ surveyId }}>
+            <button
+              className="px-4 py-2 bg-indigo-500 text-white rounded-md mb-4 medium_button"
+              aria-label="Add question"
+            >
+              Add Question
+            </button>
+          </Link>
+        </div>
         {isButtonVisible && (
-          <div className="w-full">
+          <div className="w-full text-center">
             <button
               onClick={handleSaveSurvey}
-              className="px-4 py-2 bg-indigo-500 text-white rounded-md pl-20 pr-20"
+              className="px-4 py-2 bg-indigo-500 text-white rounded-md pl-20 pr-20 medium-button"
               aria-label="Save question"
             >
               Save Survey
