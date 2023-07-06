@@ -1,4 +1,7 @@
+import { slowCypressDown } from 'cypress-slow-down';
+
 describe('Create Survey', () => {
+  slowCypressDown(50);
   it('should navigate to the new survey page', () => {
     cy.visit('http://localhost:3001/login');
     cy.get('#name').type('john@mail.com');
@@ -39,5 +42,11 @@ describe('Create Survey', () => {
     cy.get('[aria-label="Publish survey"]').click({ force: true });
     cy.get('[aria-label="Share survey"]').click({ force: true });
     cy.url().should('include', '/send-by-email');
+    cy.get('input[aria-label="add new email"]').click();
+    cy.get('input[aria-label="Email to be sent to"]').type(
+      'vipindevan08@gmail.com',
+    );
+    cy.get('input[aria-label="Send"]').click();
+    cy.visit('http://localhost:3001/participant');
   });
 });
