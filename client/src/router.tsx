@@ -16,12 +16,14 @@ import ParticipantQuestions from './components/participant/ParticipantQuestions'
 
 const AppRouter: React.FC = () => {
   const location = useLocation();
+  const isNavbarVisible =
+    location.pathname !== '/login' &&
+    location.pathname !== '/register' &&
+    location.pathname !== '/finish' &&
+    !location.pathname.startsWith('/participant');
   return (
     <>
-      {location.pathname !== '/login' &&
-        location.pathname !== '/register' &&
-        location.pathname !== '/finish' &&
-        !location.pathname.startsWith('/participant') && <Navbar />}
+      {isNavbarVisible && <Navbar />}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
