@@ -17,9 +17,6 @@ export const generateHash = () => {
 
 export const sendEmail = ({ recipient, subject, body }: EmailProps) => {
   const { mailUser, mailPass, mailService } = config;
-  console.log("mailUser", mailUser);
-  console.log("mailPass", mailPass);
-  console.log("mailService", mailService);
   const transporter = nodemailer.createTransport({
     service: mailService,
     auth: {
