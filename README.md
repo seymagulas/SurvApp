@@ -157,7 +157,7 @@ Seyma Gulas (**Operations Manager**) - [Github](https://github.com/seymagulas) -
 
 Ines Lozano (**UI/UX Supervisor**) - [Github](https://github.com/InesLozanoLopez) - [LinkedIn](https://www.linkedin.com/in/ines-lozano-0aaa2550/)
 
-Meera Rai (**Security Auditor**) - [Github](https://github.com/Pastlenomad) - [LinkedIn](http://www.linkedin.com/in/t.meera)
+Meera Rai (**Security Auditor**) - [Github](https://github.com/Pastlenomad) - [LinkedIn](http://www.linkedin.com/in/tmeera)
 
 Vipin Devan (**Chief Testing Officer**) - [Github](https://github.com/Vipin-Devan) - [LinkedIn](https://www.linkedin.com/in/vipindevan/)
 
